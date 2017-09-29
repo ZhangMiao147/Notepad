@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zhangmiao.notepad.activity.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/main_left_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/main_left_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/p_center" />
+
+            <TextView
+                android:id="@+id/main_left_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_left_head"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="登录/注册"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@android:color/white">
+
+            <ListView
+                android:id="@+id/main_left_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@android:color/white">
+
+            <ListView
+                android:id="@+id/main_left_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+
+            <ImageView
+                android:id="@+id/main_toolbar_menu"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/menu" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/main_advertisement"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/main_toolbar"
+            android:background="@color/colorAccent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/main_advertisement"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:id="@+id/main_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <LinearLayout
+            android:id="@+id/main_record_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/main_add"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/main_record_life"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:background="@drawable/textview_border"
+                android:padding="10dp"
+                android:text="记录我的生活"
+                android:textColor="@android:color/black"
+
+                />
+
+            <TextView
+                android:id="@+id/main_record_mood"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/textview_border"
+                android:padding="10dp"
+                android:text="记录每天的心情"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
