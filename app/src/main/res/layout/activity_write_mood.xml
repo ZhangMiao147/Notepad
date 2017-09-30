@@ -23,6 +23,12 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <!-- 为了实现 不自动弹出键盘，当点击EditText的时候再弹出 -->
+    <View
+        android:layout_width="0dip"
+        android:layout_height="0dip"
+        android:focusableInTouchMode="true" />
+
     <EditText
         android:id="@+id/write_mood_title_edit"
         android:layout_width="match_parent"

@@ -5,16 +5,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.zhangmiao.notepad.R;
+import com.zhangmiao.notepad.adapter.LeftListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +27,16 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
+
+//下载图标http://blog.csdn.net/frank__it/article/details/53148723
 
 /**
  * 主界面
  */
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.main_toolbar)
     Toolbar mToolbar;
@@ -59,27 +67,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListView() {
-        SimpleAdapter recordAdapter = new SimpleAdapter(this, getRecordData(), R.layout.list_item_main_left, new String[]{"img", "title"}, new int[]{R.id.list_item_left_img, R.id.list_item_left_title});
+        LeftListViewAdapter recordAdapter = new LeftListViewAdapter(this, getRecordData());
         mLeftRecordListView.setAdapter(recordAdapter);
-        mLeftRecordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    //我的笔记
-                    startActivity(new Intent(MainActivity.this, MyNoteActivity.class));
-                }
-                if (position == 1) {
-                    //我的心情
-                    startActivity(new Intent(MainActivity.this, MyMoodActivity.class));
-                }
 
-                if (position == 2) {
-                    //废纸篓
-                }
-            }
-        });
-        SimpleAdapter setAdapter = new SimpleAdapter(this, getSetData(), R.layout.list_item_main_left, new String[]{"img", "title"}, new int[]{R.id.list_item_left_img, R.id.list_item_left_title});
+        LeftListViewAdapter setAdapter = new LeftListViewAdapter(this, getSetData());
         mLeftSetListView.setAdapter(setAdapter);
+    }
+
+    @OnItemClick(R.id.main_left_record)
+    public void LeftRecordItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "mLeftRecordListView position = " + position);
+        if (position == 0) {
+            //我的笔记
+            startActivity(new Intent(MainActivity.this, MyNoteActivity.class));
+        }
+        if (position == 1) {
+            //我的心情
+            startActivity(new Intent(MainActivity.this, MyMoodActivity.class));
+        }
+
+        if (position == 2) {
+            //废纸篓
+        }
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
+
+    @OnItemClick(R.id.main_left_set)
+    public void LeftSetItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "LeftSetItemClick position = " + position);
+
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
+
+    @OnClick(R.id.main_left_person)
+    public void showPersonMessage() {
+        Log.d(TAG, "main_left_person");
     }
 
     private List<Map<String, Object>> getRecordData() {
@@ -119,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
-
     private void setToolbar() {
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
@@ -144,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, WriteMoodActivity.class));
     }
 
-    //下载图标http://www.open-open.com/lib/view/open1446429625717.html
     @OnClick(R.id.main_toolbar_menu)
     public void showLeftMenu() {
         mDrawerLayout.openDrawer(Gravity.LEFT);
