@@ -14,28 +14,19 @@
             android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:background="?attr/colorPrimary">
-
-            <ImageView
-                android:id="@+id/main_toolbar_menu"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@drawable/menu" />
 
         </android.support.v7.widget.Toolbar>
 
-        <ImageView
-            android:id="@+id/main_advertisement"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/main_toolbar"
-            android:background="@color/colorAccent" />
 
-        <android.support.v7.widget.RecyclerView
+        <FrameLayout
+            android:id="@+id/main_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/main_advertisement"
-            android:layout_marginTop="10dp" />
+            android:layout_below="@id/main_toolbar" />
 
         <ImageView
             android:id="@+id/main_add"
@@ -44,7 +35,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/add" />
 
         <LinearLayout
             android:id="@+id/main_record_layout"
@@ -56,26 +47,56 @@
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <TextView
-                android:id="@+id/main_record_life"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
                 android:background="@drawable/textview_border"
-                android:padding="10dp"
-                android:text="记录我的生活"
-                android:textColor="@android:color/black"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-                />
+                <TextView
+                    android:id="@+id/main_record_life"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="记录我的生活"
+                    android:textColor="@android:color/black"
 
-            <TextView
-                android:id="@+id/main_record_mood"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/ic_launcher" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="160dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/textview_border"
-                android:padding="10dp"
-                android:text="记录每天的心情"
-                android:textColor="@android:color/black" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/main_record_mood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="记录每天的心情"
+                    android:textColor="@android:color/black" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/ic_launcher" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </RelativeLayout>
