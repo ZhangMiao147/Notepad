@@ -48,7 +48,7 @@ public class RecordDataBean {
         this.content = content;
     }
 
-    public boolean isLock() {
+    public boolean getLock() {
         return isLock;
     }
 

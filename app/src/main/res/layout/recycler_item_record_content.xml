@@ -7,6 +7,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/recycler_item_record_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -34,7 +35,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
@@ -49,24 +50,34 @@
                 android:text="10月8日"
                 android:textColor="@android:color/black" />
 
-
-            <TextView
-                android:id="@+id/recycler_item_record_content_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="课堂笔记"
-                android:textColor="@android:color/black" />
-
-            <TextView
-                android:id="@+id/recycler_item_record_content_content"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/recycler_item_record_content_content_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="100dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="西班牙的“新艺术”运动和安东尼.高蒂的绘画"
-                android:textColor="@android:color/black" />
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/recycler_item_record_content_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="课堂笔记"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/recycler_item_record_content_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="西班牙的“新艺术”运动和安东尼.高蒂的绘画"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <TextView
@@ -75,14 +86,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:text="03::09AM"
+            android:layout_marginTop="12dp"
+            android:text="03:09AM"
             android:textColor="@android:color/black" />
 
         <ImageView
             android:id="@+id/recycler_item_record_content_flag_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@id/recycler_item_record_content_time_text"
             android:background="@drawable/search" />

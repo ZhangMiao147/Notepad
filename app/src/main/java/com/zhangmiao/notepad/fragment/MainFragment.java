@@ -1,5 +1,6 @@
 package com.zhangmiao.notepad.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class MainFragment extends Fragment {
     private static final String TAG = MainFragment.class.getSimpleName();
 
     Map<String, List<RecordDataBean>> mDataMap;
-    Context mContext;
+    private Context mContext;
 
     private RecyclerView mMainFragmentRecyclerView;
 
@@ -40,6 +41,12 @@ public class MainFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.mContext = context;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.mContext = activity;
     }
 
     @Nullable
@@ -71,7 +78,7 @@ public class MainFragment extends Fragment {
         RecordDataBean bean2 = new RecordDataBean();
         ca.add(Calendar.HOUR, 3);
         bean2.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ca.getTime()));
-        bean2.setType(RecordDataBean.TYPE_NOTE);
+        bean2.setType(RecordDataBean.TYPE_MOOD);
         bean2.setLock(false);
         bean2.setTitle("部门会议");
         bean2.setContent("八点在会议室召开全体大会！");
@@ -81,8 +88,8 @@ public class MainFragment extends Fragment {
         RecordDataBean bean3 = new RecordDataBean();
         ca.add(Calendar.HOUR, 3);
         bean3.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ca.getTime()));
-        bean3.setType(RecordDataBean.TYPE_NOTE);
-        bean3.setLock(false);
+        bean3.setType(RecordDataBean.TYPE_MOOD);
+        bean3.setLock(true);
         bean3.setTitle("读书笔记");
         bean3.setContent("从技术的角度来说，像E、List<E>和List<String>这样的类型应称作不可具体化的(nonreifiable)类型。直观地说，不可具体化的(non-reifiable)类型是指其运行时表示法包含的信息比它的编译时表示法包含的信息更少的类型。唯一可具体化的(reifiable)参数化类型是无限制的通配符类型，如List<?>和Map<?,?>，虽然不常用，但是创建无限制通配符类型的数组是合法的。");
         Log.d(TAG, "bean3 date:" + bean3);
@@ -104,5 +111,13 @@ public class MainFragment extends Fragment {
         mDataMap.put(new SimpleDateFormat("yyyy年MM月").format(ca.getTime()), dataBeanList2);
         dateList.add(new SimpleDateFormat("yyyy年MM月").format(ca.getTime()));
         return dateList;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDataMap.clear();
+        mContext = null;
+
     }
 }

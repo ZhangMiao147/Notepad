@@ -1,14 +1,21 @@
 package com.zhangmiao.notepad.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhangmiao.notepad.R;
+import com.zhangmiao.notepad.activity.RecordContentActivity;
+import com.zhangmiao.notepad.activity.RecordNoteActivity;
 import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.view.TimeView;
 
@@ -24,9 +31,13 @@ import java.util.List;
  */
 public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdapter.RecordContentHolder> {
 
-    List<RecordDataBean> dataList;
+    private static final String TAG = RecordContentAdapter.class.getSimpleName();
 
-    public RecordContentAdapter(List<RecordDataBean> dataList) {
+    List<RecordDataBean> dataList;
+    Context mContext;
+
+    public RecordContentAdapter(Context context,List<RecordDataBean> dataList) {
+        this.mContext = context;
         this.dataList = dataList;
     }
 
@@ -69,12 +80,28 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
         holder.content.setText(bean.getContent());
 
         int type = bean.getType();
-        if (type == RecordDataBean.TYPE_MOOD) {
-
-        } else if (type == RecordDataBean.TYPE_NOTE) {
-
+        boolean lock = bean.getLock();
+        if (type == RecordDataBean.TYPE_NOTE) {
+            holder.flagImageView.setBackgroundResource(R.drawable.clock);
+        } else if (type == RecordDataBean.TYPE_MOOD) {
+            if (lock) {
+                holder.flagImageView.setBackgroundResource(R.drawable.lock);
+                holder.contentLayout.setBackgroundColor(Color.parseColor("#1bbc9b"));
+                holder.content.setVisibility(View.INVISIBLE);
+                holder.title.setVisibility(View.INVISIBLE);
+            }
         }
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mContext != null) {
+                    mContext.startActivity(new Intent(mContext, RecordContentActivity.class));
+                }
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -89,6 +116,8 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
         View line;
         TextView title;
         TextView content;
+        LinearLayout contentLayout;
+        RelativeLayout item;
 
         public RecordContentHolder(View view) {
             super(view);
@@ -99,6 +128,8 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
             line = view.findViewById(R.id.recycler_item_record_content_line);
             title = (TextView) view.findViewById(R.id.recycler_item_record_content_title);
             content = (TextView) view.findViewById(R.id.recycler_item_record_content_content);
+            contentLayout = (LinearLayout) view.findViewById(R.id.recycler_item_record_content_content_layout);
+            item = (RelativeLayout) view.findViewById(R.id.recycler_item_record_content);
         }
     }
 }

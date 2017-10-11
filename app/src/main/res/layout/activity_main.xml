@@ -139,12 +139,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:padding="10dp">
 
             <ListView
                 android:id="@+id/main_left_record"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:dividerHeight="10dp" />
 
         </LinearLayout>
 
@@ -152,16 +154,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:padding="10dp">
 
             <ListView
                 android:id="@+id/main_left_set"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:dividerHeight="10dp" />
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </android.support.v4.widget.DrawerLayout>

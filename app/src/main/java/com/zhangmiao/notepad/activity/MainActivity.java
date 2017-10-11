@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.LeftListViewAdapter;
+import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.fragment.MainFragment;
 import com.zhangmiao.notepad.fragment.RecordListFragment;
 
@@ -101,12 +102,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "mLeftRecordListView position = " + position);
         if (position == 0) {
             //我的笔记
-            //startActivity(new Intent(MainActivity.this, MyNoteActivity.class));
             if (mManager == null) {
                 mManager = getFragmentManager();
             }
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", RecordDataBean.TYPE_NOTE);
+            mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
@@ -125,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
             }
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", RecordDataBean.TYPE_MOOD);
+            mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
@@ -159,17 +165,17 @@ public class MainActivity extends AppCompatActivity {
         List<Map<String, Object>> list = new ArrayList<>();
 
         Map<String, Object> map = new HashMap<>();
-        map.put("img", R.mipmap.ic_launcher);
+        map.put("img", R.drawable.note);
         map.put("title", "我的笔记");
         list.add(map);
 
         map = new HashMap<>();
-        map.put("img", R.mipmap.ic_launcher);
+        map.put("img", R.drawable.mood);
         map.put("title", "我的心情");
         list.add(map);
 
         map = new HashMap<>();
-        map.put("img", R.mipmap.ic_launcher);
+        map.put("img", R.drawable.wastepaper);
         map.put("title", "废纸篓");
         list.add(map);
 
@@ -180,12 +186,12 @@ public class MainActivity extends AppCompatActivity {
         List<Map<String, Object>> list = new ArrayList<>();
 
         Map<String, Object> map = new HashMap<>();
-        map.put("img", R.mipmap.ic_launcher);
+        map.put("img", R.drawable.feedback);
         map.put("title", "意见反馈");
         list.add(map);
 
         map = new HashMap<>();
-        map.put("img", R.mipmap.ic_launcher);
+        map.put("img", R.drawable.set);
         map.put("title", "设置");
         list.add(map);
 

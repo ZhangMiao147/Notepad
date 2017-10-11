@@ -3,6 +3,7 @@ package com.zhangmiao.notepad.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import java.util.Map;
  * Date: 2017/10/11
  */
 public class RecordYearAdapter extends RecyclerView.Adapter<RecordYearAdapter.YearHolder> {
+
+    private static final String TAG = RecordYearAdapter.class.getSimpleName();
 
     List<String> dataList;
     Context mContext;
@@ -40,9 +43,8 @@ public class RecordYearAdapter extends RecyclerView.Adapter<RecordYearAdapter.Ye
     public void onBindViewHolder(RecordYearAdapter.YearHolder holder, int position) {
         String date = dataList.get(position);
         holder.year.setText(date);
-
         holder.contentRecycler.setLayoutManager(new LinearLayoutManager(mContext));
-        RecordContentAdapter adapter = new RecordContentAdapter(mDataMap.get(date));
+        RecordContentAdapter adapter = new RecordContentAdapter(mContext,mDataMap.get(date));
         holder.contentRecycler.setAdapter(adapter);
     }
 

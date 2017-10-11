@@ -18,5 +18,6 @@
         </activity>
         <activity android:name=".activity.RecordNoteActivity" />
         <activity android:name=".activity.WriteMoodActivity" />
+        <activity android:name=".activity.RecordContentActivity" />
     </application>
 </manifest>
