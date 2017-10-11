@@ -18,8 +18,5 @@
         </activity>
         <activity android:name=".activity.RecordNoteActivity" />
         <activity android:name=".activity.WriteMoodActivity" />
-        <activity android:name=".activity.MyMoodActivity" />
-        <activity android:name=".activity.MyNoteActivity" />
     </application>
-
 </manifest>

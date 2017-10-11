@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/recycler_item_record_content_time_layout"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.zhangmiao.notepad.view.TimeView
+                android:id="@+id/recycler_item_record_content_time_view"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:clock_color="@android:color/holo_blue_bright"
+                app:clockwise_color="@android:color/white"
+                app:num="7" />
+
+            <View
+                android:id="@+id/recycler_item_record_content_line"
+                android:layout_width="1dp"
+                android:layout_height="70dp"
+                android:background="@android:color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/recycler_item_record_content_time_layout"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recycler_item_record_content_month_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="10月8日"
+                android:textColor="@android:color/black" />
+
+
+            <TextView
+                android:id="@+id/recycler_item_record_content_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="课堂笔记"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/recycler_item_record_content_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="100dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="西班牙的“新艺术”运动和安东尼.高蒂的绘画"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recycler_item_record_content_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="03::09AM"
+            android:textColor="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/recycler_item_record_content_flag_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@id/recycler_item_record_content_time_text"
+            android:background="@drawable/search" />
+    </RelativeLayout>
+</LinearLayout>

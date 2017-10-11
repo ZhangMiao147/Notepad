@@ -19,8 +19,7 @@ import android.widget.ListView;
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.LeftListViewAdapter;
 import com.zhangmiao.notepad.fragment.MainFragment;
-import com.zhangmiao.notepad.fragment.MyMoodFragment;
-import com.zhangmiao.notepad.fragment.MyNoteFragment;
+import com.zhangmiao.notepad.fragment.RecordListFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_drawer_layout)
     DrawerLayout mDrawerLayout;
 
+    private boolean isBack;
+
     FragmentManager mManager;
 
     MainFragment mMainFragment;
 
-    MyNoteFragment mNoteFragment;
-
-    MyMoodFragment mMoodFragment;
+    RecordListFragment mRecordListFragment;
 
     Menu mMenu;
 
@@ -107,30 +106,35 @@ public class MainActivity extends AppCompatActivity {
                 mManager = getFragmentManager();
             }
             FragmentTransaction transaction = mManager.beginTransaction();
-            mNoteFragment = new MyNoteFragment();
-            transaction.replace(R.id.main_fragment, mNoteFragment);
+            mRecordListFragment = new RecordListFragment();
+            transaction.replace(R.id.main_fragment, mRecordListFragment);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.addToBackStack(null);
             transaction.commit();
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
             mMenu.findItem(R.id.menu_main_search).setVisible(true);
             mToolbar.setTitle("我的笔记");
+            isBack = true;
         }
         if (position == 1) {
             //我的心情
-            //startActivity(new Intent(MainActivity.this, MyMoodActivity.class));
             if (mManager == null) {
                 mManager = getFragmentManager();
             }
             FragmentTransaction transaction = mManager.beginTransaction();
-            mMoodFragment = new MyMoodFragment();
-            transaction.replace(R.id.main_fragment, mMoodFragment);
+            mRecordListFragment = new RecordListFragment();
+            transaction.replace(R.id.main_fragment, mRecordListFragment);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.addToBackStack(null);
             transaction.commit();
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
             mMenu.findItem(R.id.menu_main_search).setVisible(true);
             mToolbar.setTitle("我的心情");
+            isBack = true;
         }
 
         if (position == 2) {
@@ -231,5 +235,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mManager == null) {
+            mManager = getFragmentManager();
+        }
+
+        if (isBack) {
+            mManager.popBackStack();
+            isBack = false;
+        } else {
+            super.onBackPressed();
+        }
+
     }
 }
