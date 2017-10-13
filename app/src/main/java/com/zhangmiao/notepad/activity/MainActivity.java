@@ -1,8 +1,10 @@
 package com.zhangmiao.notepad.activity;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.icu.text.AlphabeticIndex;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -81,10 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDefaultFragment() {
         if (mManager == null) {
-            mManager = getFragmentManager();
+            mManager = getSupportFragmentManager();
         }
         FragmentTransaction transaction = mManager.beginTransaction();
         mMainFragment = new MainFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", RecordDataBean.TYPE_MAIN);
+        mMainFragment.setArguments(bundle);
         transaction.replace(R.id.main_fragment, mMainFragment);
         transaction.commit();
     }
@@ -100,11 +105,26 @@ public class MainActivity extends AppCompatActivity {
     @OnItemClick(R.id.main_left_record)
     public void LeftRecordItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "mLeftRecordListView position = " + position);
+        if (mManager == null) {
+            mManager = getSupportFragmentManager();
+        }
+
+        List<Fragment> fragments = mManager.getFragments();
+        for (Fragment fragment: fragments) {
+            if (fragment != null && fragment.isVisible()) {
+                Log.d(TAG,"type:"+fragment.getArguments().getInt("type"));
+                if (fragment.getArguments().getInt("type") == RecordDataBean.TYPE_MOOD || fragment.getArguments().getInt("type") == RecordDataBean.TYPE_NOTE) {
+                    mManager.popBackStack();
+                }
+            }
+        }
+
+
         if (position == 0) {
             //我的笔记
-            if (mManager == null) {
-                mManager = getFragmentManager();
-            }
+
+            Log.d(TAG, "count = " + mManager.getBackStackEntryCount());
+
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
@@ -123,9 +143,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if (position == 1) {
             //我的心情
-            if (mManager == null) {
-                mManager = getFragmentManager();
-            }
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
@@ -147,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
             //废纸篓
         }
         mDrawerLayout.closeDrawer(Gravity.LEFT);
+        if (mRecordLayout.getVisibility() == View.VISIBLE) {
+            mRecordLayout.setVisibility(View.GONE);
+        }
     }
 
     @OnItemClick(R.id.main_left_set)
@@ -154,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "LeftSetItemClick position = " + position);
         //意见反馈与设置
         mDrawerLayout.closeDrawer(Gravity.LEFT);
+        if (mRecordLayout.getVisibility() == View.VISIBLE) {
+            mRecordLayout.setVisibility(View.GONE);
+        }
     }
 
     @OnClick(R.id.main_left_person)
@@ -223,11 +246,17 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.main_record_life)
     public void recordLife() {
         startActivity(new Intent(this, RecordNoteActivity.class));
+        if (mRecordLayout.getVisibility() == View.VISIBLE) {
+            mRecordLayout.setVisibility(View.GONE);
+        }
     }
 
     @OnClick(R.id.main_record_mood)
     public void recordMood() {
         startActivity(new Intent(this, WriteMoodActivity.class));
+        if (mRecordLayout.getVisibility() == View.VISIBLE) {
+            mRecordLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -246,11 +275,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (mManager == null) {
-            mManager = getFragmentManager();
+            mManager = getSupportFragmentManager();
         }
 
         if (isBack) {
             mManager.popBackStack();
+            mToolbar.setTitle("");
             isBack = false;
         } else {
             super.onBackPressed();

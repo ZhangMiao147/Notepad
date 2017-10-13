@@ -82,7 +82,8 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
         int type = bean.getType();
         boolean lock = bean.getLock();
         if (type == RecordDataBean.TYPE_NOTE) {
-            holder.flagImageView.setBackgroundResource(R.drawable.clock);
+            //holder.flagImageView.setBackgroundResource(R.drawable.clock);
+            holder.flagImageView.setVisibility(View.INVISIBLE);
         } else if (type == RecordDataBean.TYPE_MOOD) {
             if (lock) {
                 holder.flagImageView.setBackgroundResource(R.drawable.lock);

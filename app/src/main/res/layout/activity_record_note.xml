@@ -12,15 +12,46 @@
         android:background="?attr/colorPrimary">
 
         <ImageView
+            android:id="@+id/record_note_toolbar_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back" />
 
         <ImageView
+            android:id="@+id/record_note_toolbar_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/save" />
+
+        <ImageView
+            android:id="@+id/record_note_toolbar_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/undo" />
+
+        <ImageView
+            android:id="@+id/record_note_toolbar_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/redo" />
+
+        <ImageView
+            android:id="@+id/record_note_toolbar_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/font" />
+
+        <ImageView
+            android:id="@+id/record_note_toolbar_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/camera" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -31,15 +62,16 @@
         android:focusableInTouchMode="true" />
 
     <EditText
-        android:id="@+id/record_note_title_edit"
+        android:id="@+id/record_note_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/edit_text"
         android:hint="笔记标题"
+        android:textColor="@android:color/black"
         android:textColorHint="@android:color/darker_gray" />
 
     <EditText
-        android:id="@+id/record_note_content"
+        android:id="@+id/record_note_content_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:drawable/edit_text"
@@ -49,7 +81,19 @@
         android:inputType="textMultiLine"
         android:minLines="8"
         android:scrollbars="vertical"
-        android:textColorHint="@android:color/darker_gray" />
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:visibility="gone" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
+        <ImageView
+            android:id="@+id/record_note_content_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/clock" />
+    </LinearLayout>
 </LinearLayout>

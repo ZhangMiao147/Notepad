@@ -6,6 +6,7 @@ package com.zhangmiao.notepad.bean;
  */
 public class RecordDataBean {
 
+    public static int TYPE_MAIN = 10000;
     public static int TYPE_MOOD = 10001;
     public static int TYPE_NOTE = 10002;
 
