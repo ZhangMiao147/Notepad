@@ -1,7 +1,6 @@
 package com.zhangmiao.notepad.activity;
 
 import android.content.Intent;
-import android.icu.text.AlphabeticIndex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;

@@ -51,6 +51,7 @@ public class TimeView extends View {
         mNum = ta.getInt(R.styleable.TimeView_num, 0);
         mClockColor = ta.getColor(R.styleable.TimeView_clock_color, Color.WHITE);
         mClockwiseColor = ta.getColor(R.styleable.TimeView_clockwise_color, Color.BLACK);
+        ta.recycle();
     }
 
     @Override
