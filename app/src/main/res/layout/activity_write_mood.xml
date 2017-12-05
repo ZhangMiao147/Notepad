@@ -8,18 +8,58 @@
         android:id="@+id/write_mood_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="center_vertical"
         android:background="?attr/colorPrimary">
 
         <ImageView
+            android:id="@+id/write_mood_toolbar_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher_round" />
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back" />
 
         <ImageView
+            android:id="@+id/write_mood_toolbar_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/save" />
+
+        <ImageView
+            android:id="@+id/write_mood_toolbar_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/undo"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:id="@+id/write_mood_toolbar_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/redo"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:id="@+id/write_mood_toolbar_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/font"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:id="@+id/write_mood_toolbar_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/camera"
+            android:visibility="gone"
+            />
 
     </android.support.v7.widget.Toolbar>
 
@@ -30,15 +70,16 @@
         android:focusableInTouchMode="true" />
 
     <EditText
-        android:id="@+id/write_mood_title_edit"
+        android:id="@+id/write_mood_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/edit_text"
         android:hint="心情标题"
+        android:textColor="@android:color/black"
         android:textColorHint="@android:color/darker_gray" />
 
     <EditText
-        android:id="@+id/write_mood_content"
+        android:id="@+id/write_mood_content_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:drawable/edit_text"
@@ -48,6 +89,21 @@
         android:inputType="textMultiLine"
         android:minLines="8"
         android:scrollbars="vertical"
-        android:textColorHint="@android:color/darker_gray" />
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/write_mood_content_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/clock" />
+    </LinearLayout>
 
 </LinearLayout>

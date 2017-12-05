@@ -10,7 +10,7 @@ import com.zhangmiao.notepad.db.DaoSession;
  * Author: zhangmiao
  * Date: 2017/12/1
  */
-public class BaseApplication extends Application{
+public class BaseApplication extends Application {
 
     private static DaoSession daoSession;
 
@@ -27,7 +27,7 @@ public class BaseApplication extends Application{
     private void setupDatabase() {
         //创建数据库notepad.db
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
-                "notepad.db",null);
+                "notepad.db", null);
         //获取可写数据库
         SQLiteDatabase db = helper.getWritableDatabase();
         //获取数据库对象

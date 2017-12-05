@@ -16,12 +16,6 @@
         app:showAsAction="always"
         />
 
-    <item android:icon="@drawable/back"
-        android:title="返回"
-        app:showAsAction="always"
-        />
-
-
     <item
         android:id="@+id/menu_my_note_settings"
         android:orderInCategory="100"

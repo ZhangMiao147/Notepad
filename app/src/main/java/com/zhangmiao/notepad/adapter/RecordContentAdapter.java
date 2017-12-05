@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,9 @@ import android.widget.TextView;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.activity.RecordContentActivity;
-import com.zhangmiao.notepad.activity.RecordNoteActivity;
 import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.view.TimeView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +33,7 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
     List<RecordDataBean> dataList;
     Context mContext;
 
-    public RecordContentAdapter(Context context,List<RecordDataBean> dataList) {
+    public RecordContentAdapter(Context context, List<RecordDataBean> dataList) {
         this.mContext = context;
         this.dataList = dataList;
     }
@@ -52,29 +49,27 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
         if (position == dataList.size() - 1) {
             holder.line.setVisibility(View.INVISIBLE);
         }
-        RecordDataBean bean = dataList.get(position);
-        String date = bean.getDate();
+        final RecordDataBean bean = dataList.get(position);
+        long date = bean.getDate();
         SimpleDateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date defaultDate = defaultFormat.parse(date);
-            holder.monthTextView.setText(new SimpleDateFormat("MM月dd日").format(defaultDate));
-            holder.timeTextView.setText(new SimpleDateFormat("HH:mm").format(defaultDate));
-            Calendar ca = Calendar.getInstance();
-            ca.setTime(defaultDate);
-            int hour = ca.get(Calendar.HOUR);
-            holder.timeView.setmNum(hour);
-            if (hour < 3) {
-                holder.timeView.setmClockColor(Color.parseColor("#74848c"));
-            } else if (hour < 6) {
-                holder.timeView.setmClockColor(Color.parseColor("#56b5e2"));
-            } else if (hour < 9) {
-                holder.timeView.setmClockColor(Color.parseColor("#8c97cb"));
-            } else {
-                holder.timeView.setmClockColor(Color.parseColor("#e97f6a"));
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+        Date defaultDate = new Date(date);
+        holder.monthTextView.setText(new SimpleDateFormat("MM月dd日").format(defaultDate));
+        holder.timeTextView.setText(new SimpleDateFormat("HH:mm").format(defaultDate));
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(defaultDate);
+        int hour = ca.get(Calendar.HOUR);
+        holder.timeView.setmNum(hour);
+        if (hour < 3) {
+            holder.timeView.setmClockColor(Color.parseColor("#74848c"));
+        } else if (hour < 6) {
+            holder.timeView.setmClockColor(Color.parseColor("#56b5e2"));
+        } else if (hour < 9) {
+            holder.timeView.setmClockColor(Color.parseColor("#8c97cb"));
+        } else {
+            holder.timeView.setmClockColor(Color.parseColor("#e97f6a"));
         }
+
 
         holder.title.setText(bean.getTitle());
         holder.content.setText(bean.getContent());
@@ -96,13 +91,14 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
             @Override
             public void onClick(View v) {
                 if (mContext != null) {
-                    mContext.startActivity(new Intent(mContext, RecordContentActivity.class));
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, RecordContentActivity.class);
+                    intent.putExtra("data", bean);
+                    mContext.startActivity(intent);
                 }
             }
         });
     }
-
-
 
     @Override
     public int getItemCount() {

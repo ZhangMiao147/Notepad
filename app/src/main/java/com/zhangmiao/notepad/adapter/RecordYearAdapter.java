@@ -3,7 +3,6 @@ package com.zhangmiao.notepad.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,12 @@ public class RecordYearAdapter extends RecyclerView.Adapter<RecordYearAdapter.Ye
         this.mDataMap = dataMap;
     }
 
+    public void refreshDate(List<String> dataList, Map<String, List<RecordDataBean>> dataMap) {
+        this.dataList = dataList;
+        this.mDataMap = dataMap;
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecordYearAdapter.YearHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecordYearAdapter.YearHolder holder = new RecordYearAdapter.YearHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_my_note, parent, false));
@@ -44,7 +49,7 @@ public class RecordYearAdapter extends RecyclerView.Adapter<RecordYearAdapter.Ye
         String date = dataList.get(position);
         holder.year.setText(date);
         holder.contentRecycler.setLayoutManager(new LinearLayoutManager(mContext));
-        RecordContentAdapter adapter = new RecordContentAdapter(mContext,mDataMap.get(date));
+        RecordContentAdapter adapter = new RecordContentAdapter(mContext, mDataMap.get(date));
         holder.contentRecycler.setAdapter(adapter);
     }
 

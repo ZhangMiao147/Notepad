@@ -1,5 +1,6 @@
 package com.zhangmiao.notepad.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_drawer_layout)
     DrawerLayout mDrawerLayout;
 
+    @BindView(R.id.main_toolbar_back)
+    ImageView iv_toolbarBack;
+
     private boolean isBack;
 
     FragmentManager mManager;
@@ -80,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
         initListView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void setDefaultFragment() {
         if (mManager == null) {
             mManager = getSupportFragmentManager();
@@ -91,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         mMainFragment.setArguments(bundle);
         transaction.replace(R.id.main_fragment, mMainFragment);
         transaction.commit();
+        iv_toolbarBack.setVisibility(View.GONE);
     }
 
     private void initListView() {
@@ -107,21 +117,9 @@ public class MainActivity extends AppCompatActivity {
         if (mManager == null) {
             mManager = getSupportFragmentManager();
         }
-
-        List<Fragment> fragments = mManager.getFragments();
-        for (Fragment fragment: fragments) {
-            if (fragment != null && fragment.isVisible()) {
-                Log.d(TAG,"type:"+fragment.getArguments().getInt("type"));
-                if (fragment.getArguments().getInt("type") == RecordDataBean.TYPE_MOOD || fragment.getArguments().getInt("type") == RecordDataBean.TYPE_NOTE) {
-                    mManager.popBackStack();
-                }
-            }
-        }
-
-
+        back();
         if (position == 0) {
             //我的笔记
-
             Log.d(TAG, "count = " + mManager.getBackStackEntryCount());
 
             FragmentTransaction transaction = mManager.beginTransaction();
@@ -133,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
             transaction.commit();
+            iv_toolbarBack.setVisibility(View.VISIBLE);
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
@@ -151,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
             transaction.commit();
+            iv_toolbarBack.setVisibility(View.VISIBLE);
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
@@ -181,6 +181,16 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.main_left_person)
     public void showPersonMessage() {
         Log.d(TAG, "main_left_person");
+    }
+
+    @OnClick(R.id.main_toolbar_back)
+    public void back() {
+        Fragment fragment = mManager.findFragmentById(R.id.main_fragment);
+        if (fragment instanceof RecordListFragment) {
+            mManager.popBackStack();
+        }
+        mToolbar.setTitle("");
+        iv_toolbarBack.setVisibility(View.GONE);
     }
 
     private List<Map<String, Object>> getRecordData() {
@@ -280,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
         if (isBack) {
             mManager.popBackStack();
             mToolbar.setTitle("");
+            iv_toolbarBack.setVisibility(View.GONE);
             isBack = false;
         } else {
             super.onBackPressed();

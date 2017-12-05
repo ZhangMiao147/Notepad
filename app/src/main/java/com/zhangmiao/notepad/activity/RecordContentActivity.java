@@ -11,6 +11,7 @@ import com.zhangmiao.notepad.bean.RecordDataBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Author: zhangmiao
@@ -39,4 +40,10 @@ public class RecordContentActivity extends Activity {
             tv_contentContent.setText(recordDataBean.getContent());
         }
     }
+
+    @OnClick(R.id.record_content_toolbar_back)
+    public void back() {
+        finish();
+    }
+
 }

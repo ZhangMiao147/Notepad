@@ -30,28 +30,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/undo" />
+            android:background="@drawable/undo"
+            android:visibility="gone"
+            />
 
         <ImageView
             android:id="@+id/record_note_toolbar_redo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/redo" />
+            android:background="@drawable/redo"
+            android:visibility="gone"
+            />
 
         <ImageView
             android:id="@+id/record_note_toolbar_font"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/font" />
+            android:background="@drawable/font"
+            android:visibility="gone"
+            />
 
         <ImageView
             android:id="@+id/record_note_toolbar_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/camera" />
+            android:background="@drawable/camera"
+            android:visibility="gone"
+            />
 
     </android.support.v7.widget.Toolbar>
 
@@ -83,12 +91,14 @@
         android:scrollbars="vertical"
         android:textColor="@android:color/black"
         android:textColorHint="@android:color/darker_gray"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone"
+        >
 
         <ImageView
             android:id="@+id/record_note_content_image"
