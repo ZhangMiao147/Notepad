@@ -7,13 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.bean.RecordDataBean;
+import com.zhangmiao.notepad.db.RecordDao;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -34,7 +34,7 @@ public class RecordNoteActivity extends Activity {
     EditText mContentEditText;
 
     @BindView(R.id.record_note_content_image)
-    GridView mContextImage;
+    ImageView mContextImage;
 
     RecordDataBean bean;
 
@@ -60,7 +60,7 @@ public class RecordNoteActivity extends Activity {
                             finish();
                         }
                     })
-            .setPositiveButton("否",null);
+                    .setPositiveButton("否", null);
             builder.show();
         } else {
             finish();
@@ -83,7 +83,10 @@ public class RecordNoteActivity extends Activity {
             bean.setContent(content);
         }
         bean.setType(RecordDataBean.TYPE_NOTE);
-        bean.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        bean.setDate((new Date()).getTime());
+        bean.setLock(false);
+        bean.setId((new Date()).getTime());
+        RecordDao.insertNote(bean);
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
