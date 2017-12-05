@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
-            mMenu.findItem(R.id.menu_main_search).setVisible(true);
             mToolbar.setTitle("我的笔记");
             isBack = true;
         }
@@ -154,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
-            mMenu.findItem(R.id.menu_main_search).setVisible(true);
             mToolbar.setTitle("我的心情");
             isBack = true;
         }
@@ -272,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mMenu = menu;
-        mMenu.findItem(R.id.menu_main_search).setVisible(false);
         return true;
     }
 

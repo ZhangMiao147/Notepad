@@ -2,18 +2,24 @@ package com.zhangmiao.notepad.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.RecordYearAdapter;
+import com.zhangmiao.notepad.application.BaseApplication;
 import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.db.RecordDao;
 
@@ -26,6 +32,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Author: zhangmiao
@@ -40,6 +47,12 @@ public class RecordListFragment extends Fragment {
 
     @BindView(R.id.fragment_record_no_data_prompt)
     TextView tv_noDataPrompt;
+
+    @BindView(R.id.fragment_record_search_edit)
+    EditText et_searchText;
+
+    @BindView(R.id.fragment_record_search)
+    ImageView iv_search;
 
     Context mContext;
 
@@ -66,13 +79,13 @@ public class RecordListFragment extends Fragment {
 
         mType = getArguments().getInt("type");
         View view = inflater.inflate(R.layout.fragment_record, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         mYearRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         List<String> dateList = getData();
         if (dateList == null || (dateList != null && dateList.size() == 0)) {
             tv_noDataPrompt.setVisibility(View.VISIBLE);
             mYearRecyclerView.setVisibility(View.GONE);
-            if(mType == RecordDataBean.TYPE_MOOD) {
+            if (mType == RecordDataBean.TYPE_MOOD) {
                 tv_noDataPrompt.setText("快去记录你当前的心情吧！");
             } else {
                 tv_noDataPrompt.setText("快去记录你多彩的生活吧！");
@@ -98,18 +111,15 @@ public class RecordListFragment extends Fragment {
         super.onResume();
         List<String> dateList = getData();
         if (dateList == null || (dateList != null && dateList.size() == 0)) {
-            tv_noDataPrompt.setVisibility(View.VISIBLE);
-            mYearRecyclerView.setVisibility(View.GONE);
-            if(mType == RecordDataBean.TYPE_MOOD) {
-                tv_noDataPrompt.setText("快去记录你当前的心情吧！");
+            if (mType == RecordDataBean.TYPE_MOOD) {
+                showPrompt(View.GONE, "快去记录你当前的心情吧！");
             } else {
-                tv_noDataPrompt.setText("快去记录你多彩的生活吧！");
+                showPrompt(View.GONE, "快去记录你多彩的生活吧！");
             }
         } else {
-            tv_noDataPrompt.setVisibility(View.GONE);
-            mYearRecyclerView.setVisibility(View.VISIBLE);
+            showPrompt(View.GONE, null);
         }
-        mRecordYearAdapter.refreshDate(dateList,mDataMap);
+        mRecordYearAdapter.refreshDate(dateList, mDataMap);
     }
 
     private List<String> getData() {
@@ -135,6 +145,76 @@ public class RecordListFragment extends Fragment {
         }
         return dateList;
     }
+
+    @OnClick(R.id.fragment_record_search)
+    void search() {
+        List<RecordDataBean> searchResult = new ArrayList<>();
+        if (et_searchText.getText() != null) {
+            String searchText = et_searchText.getText().toString();
+            if (!TextUtils.isEmpty(searchText.trim())) {
+                List<RecordDataBean> dataBeanList = RecordDao.queryDataByType(mType);
+                for (int i = 0; i < dataBeanList.size(); i++) {
+                    RecordDataBean bean = dataBeanList.get(i);
+                    String title = bean.getTitle();
+                    String content = bean.getContent();
+                    if (title.contains(searchText) || content.contains(searchText)) {
+                        //包含内容
+                        searchResult.add(bean);
+                    }
+                }
+            } else {
+                //无输入,显示所有的数据
+                showPrompt(View.GONE, null);
+                mRecordYearAdapter.refreshDate(getData(), mDataMap);
+                return;
+            }
+        } else {
+            //无输入,显示所有的数据
+            showPrompt(View.GONE, null);
+            mRecordYearAdapter.refreshDate(getData(), mDataMap);
+            return;
+        }
+
+        if (searchResult != null) {
+            if (searchResult.size() == 0) {
+                //没有查询到数据
+                showPrompt(View.VISIBLE, "没有查询到响应的数据！");
+            } else {
+                List<String> dateList = new ArrayList<>();
+                Map<String, List<RecordDataBean>> searchResultMap = new HashMap<>();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
+                for (int i = 0; i < searchResult.size(); i++) {
+                    RecordDataBean bean = searchResult.get(i);
+                    long time = bean.getDate();
+                    String timeText = format.format(new Date(time));
+                    if (!dateList.contains(timeText)) {
+                        dateList.add(timeText);
+                        List<RecordDataBean> beanList = new ArrayList<>();
+                        beanList.add(bean);
+                        searchResultMap.put(timeText, beanList);
+                    } else {
+                        List<RecordDataBean> dataBeanList = mDataMap.get(timeText);
+                        dataBeanList.add(bean);
+                    }
+                }
+                showPrompt(View.GONE, null);
+                mRecordYearAdapter.refreshDate(dateList, searchResultMap);
+            }
+        }
+
+    }
+
+    public void showPrompt(int Visibility, String message) {
+        if (Visibility == View.VISIBLE) {
+            tv_noDataPrompt.setVisibility(View.VISIBLE);
+            mYearRecyclerView.setVisibility(View.GONE);
+            tv_noDataPrompt.setText(message);
+        } else {
+            tv_noDataPrompt.setVisibility(View.GONE);
+            mYearRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     @Override
     public void onDestroy() {
