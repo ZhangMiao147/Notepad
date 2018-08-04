@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 主界面布局
  * Author: zhangmiao
  * Date: 2017/10/8
  */
@@ -64,7 +65,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         mMainFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         List<String> dateList = getNoteData();
         if (dateList == null || (dateList != null && dateList.size() == 0)) {

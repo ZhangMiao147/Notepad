@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * 我的笔记，我的心情的界面
  * Author: zhangmiao
  * Date: 2017/10/8
  */

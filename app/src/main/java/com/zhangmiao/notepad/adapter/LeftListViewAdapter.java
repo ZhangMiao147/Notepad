@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 左边侧拉栏的adapter
  * Author: zhangmiao
  * Date: 2017/9/30
  */
@@ -22,10 +23,10 @@ public class LeftListViewAdapter extends BaseAdapter {
 
     private final static String TAG = LeftListViewAdapter.class.getSimpleName();
 
-    private List<Map<String,Object>> dataList;
+    private List<Map<String, Object>> dataList;
     private Context context;
 
-    public LeftListViewAdapter(Context context,List<Map<String, Object>> dataList) {
+    public LeftListViewAdapter(Context context, List<Map<String, Object>> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -58,16 +59,16 @@ public class LeftListViewAdapter extends BaseAdapter {
             holder = new LeftViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item_main_left, null);
             convertView.setTag(holder);
-            holder.imageView = (ImageView)convertView.findViewById(R.id.list_item_left_img);
-            holder.textView = (TextView)convertView.findViewById(R.id.list_item_left_title);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.list_item_left_img);
+            holder.textView = (TextView) convertView.findViewById(R.id.list_item_left_title);
 
-            Map<String,Object> map = dataList.get(position);
-            holder.imageView.setImageResource((int)map.get("img"));
-            holder.textView.setText((String)map.get("title"));
+            Map<String, Object> map = dataList.get(position);
+            holder.imageView.setImageResource((int) map.get("img"));
+            holder.textView.setText((String) map.get("title"));
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG,"onClick");
+                    Log.d(TAG, "onClick");
                 }
             });
         } else {

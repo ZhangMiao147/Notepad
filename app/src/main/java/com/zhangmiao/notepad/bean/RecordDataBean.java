@@ -9,6 +9,7 @@ import org.greenrobot.greendao.annotation.Generated;
 import java.io.Serializable;
 
 /**
+ * 笔记心情的数据库Bean
  * Author: zhangmiao
  * Date: 2017/10/8
  */

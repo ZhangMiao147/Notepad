@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * 笔记详情界面
  * Author: zhangmiao
  * Date: 2017/10/11
  */

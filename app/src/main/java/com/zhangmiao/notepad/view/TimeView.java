@@ -13,6 +13,7 @@ import android.view.View;
 import com.zhangmiao.notepad.R;
 
 /**
+ * 画一个小表盘
  * Author: zhangmiao
  * Date: 2017/10/9
  */

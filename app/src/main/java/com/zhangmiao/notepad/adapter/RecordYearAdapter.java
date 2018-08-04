@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 笔记心情年月列表adapter
  * Author: zhangmiao
  * Date: 2017/10/11
  */

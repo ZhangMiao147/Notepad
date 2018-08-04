@@ -23,7 +23,7 @@ public class RecordDao {
 
     //删除数据
     public static void deleteNote(long id) {
-        BaseApplication.getDaoInstant().getRecordDataBeanDao().deleteByKey(id);
+        BaseApplication.getDaoInstant().getRecordDataBeanDao().deleteByKey(id + "");
     }
 
     //更新数据

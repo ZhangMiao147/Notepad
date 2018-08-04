@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 笔记心情列表adapter
  * Author: zhangmiao
  * Date: 2017/10/11
  */
