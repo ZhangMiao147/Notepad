@@ -15,6 +15,7 @@ import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.db.RecordDao;
 
 import java.util.Date;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +86,7 @@ public class RecordNoteActivity extends Activity {
         bean.setType(RecordDataBean.TYPE_NOTE);
         bean.setDate((new Date()).getTime());
         bean.setLock(false);
-        bean.setId((new Date()).getTime());
+        bean.setId(UUID.randomUUID().toString());
         RecordDao.insertNote(bean);
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }

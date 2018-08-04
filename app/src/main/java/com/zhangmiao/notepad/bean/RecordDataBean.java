@@ -20,7 +20,7 @@ public class RecordDataBean implements Serializable {
     public static int TYPE_NOTE = 10002;
 
     @Id
-    private long id;
+    private String id;
 
     //时间
     @Unique
@@ -39,9 +39,9 @@ public class RecordDataBean implements Serializable {
     //记录类型，"mood"--心情,"note"--笔记
     private int type;
 
-    @Generated(hash = 70385658)
-    public RecordDataBean(int TYPE_MAIN, int TYPE_MOOD, int TYPE_NOTE, long id,
-                          long date, String title, String content, boolean isLock, int type) {
+    @Generated(hash = 217281634)
+    public RecordDataBean(int TYPE_MAIN, int TYPE_MOOD, int TYPE_NOTE, String id, long date,
+                          String title, String content, boolean isLock, int type) {
         this.TYPE_MAIN = TYPE_MAIN;
         this.TYPE_MOOD = TYPE_MOOD;
         this.TYPE_NOTE = TYPE_NOTE;
@@ -105,11 +105,11 @@ public class RecordDataBean implements Serializable {
         this.isLock = isLock;
     }
 
-    public long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -16,6 +16,7 @@ import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.db.RecordDao;
 
 import java.util.Date;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,7 +89,7 @@ public class WriteMoodActivity extends Activity {
         bean.setType(RecordDataBean.TYPE_MOOD);
         bean.setDate((new Date()).getTime());
         bean.setLock(false);
-        bean.setId((new Date()).getTime());
+        bean.setId(UUID.randomUUID().toString());
         Log.d(TAG, "bean:" + bean);
         RecordDao.insertNote(bean);
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
