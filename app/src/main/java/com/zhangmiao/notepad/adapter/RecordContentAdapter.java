@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.activity.RecordContentActivity;
-import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.view.TimeView;
 
 import java.text.SimpleDateFormat;
@@ -31,13 +30,13 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
 
     private static final String TAG = RecordContentAdapter.class.getSimpleName();
 
-    List<RecordDataBean> dataList;
+//    List<RecordDataBean> dataList;
     Context mContext;
-
-    public RecordContentAdapter(Context context, List<RecordDataBean> dataList) {
-        this.mContext = context;
-        this.dataList = dataList;
-    }
+//
+//    public RecordContentAdapter(Context context, List<RecordDataBean> dataList) {
+//        this.mContext = context;
+//        this.dataList = dataList;
+//    }
 
     @Override
     public RecordContentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,63 +46,64 @@ public class RecordContentAdapter extends RecyclerView.Adapter<RecordContentAdap
 
     @Override
     public void onBindViewHolder(RecordContentHolder holder, int position) {
-        if (position == dataList.size() - 1) {
-            holder.line.setVisibility(View.INVISIBLE);
-        }
-        final RecordDataBean bean = dataList.get(position);
-        long date = bean.getDate();
-        SimpleDateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Date defaultDate = new Date(date);
-        holder.monthTextView.setText(new SimpleDateFormat("MM月dd日").format(defaultDate));
-        holder.timeTextView.setText(new SimpleDateFormat("HH:mm").format(defaultDate));
-        Calendar ca = Calendar.getInstance();
-        ca.setTime(defaultDate);
-        int hour = ca.get(Calendar.HOUR);
-        holder.timeView.setmNum(hour);
-        if (hour < 3) {
-            holder.timeView.setmClockColor(Color.parseColor("#74848c"));
-        } else if (hour < 6) {
-            holder.timeView.setmClockColor(Color.parseColor("#56b5e2"));
-        } else if (hour < 9) {
-            holder.timeView.setmClockColor(Color.parseColor("#8c97cb"));
-        } else {
-            holder.timeView.setmClockColor(Color.parseColor("#e97f6a"));
-        }
-
-
-        holder.title.setText(bean.getTitle());
-        holder.content.setText(bean.getContent());
-
-        int type = bean.getType();
-        boolean lock = bean.getLock();
-        if (type == RecordDataBean.TYPE_NOTE) {
-            //holder.flagImageView.setBackgroundResource(R.drawable.clock);
-            holder.flagImageView.setVisibility(View.INVISIBLE);
-        } else if (type == RecordDataBean.TYPE_MOOD) {
-            if (lock) {
-                holder.flagImageView.setBackgroundResource(R.drawable.lock);
-                holder.contentLayout.setBackgroundColor(Color.parseColor("#1bbc9b"));
-                holder.content.setVisibility(View.INVISIBLE);
-                holder.title.setVisibility(View.INVISIBLE);
-            }
-        }
-        holder.item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mContext != null) {
-                    Intent intent = new Intent();
-                    intent.setClass(mContext, RecordContentActivity.class);
-                    intent.putExtra("data", bean);
-                    mContext.startActivity(intent);
-                }
-            }
-        });
+//        if (position == dataList.size() - 1) {
+//            holder.line.setVisibility(View.INVISIBLE);
+//        }
+//        final RecordDataBean bean = dataList.get(position);
+//        long date = bean.getDate();
+//        SimpleDateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//
+//        Date defaultDate = new Date(date);
+//        holder.monthTextView.setText(new SimpleDateFormat("MM月dd日").format(defaultDate));
+//        holder.timeTextView.setText(new SimpleDateFormat("HH:mm").format(defaultDate));
+//        Calendar ca = Calendar.getInstance();
+//        ca.setTime(defaultDate);
+//        int hour = ca.get(Calendar.HOUR);
+//        holder.timeView.setmNum(hour);
+//        if (hour < 3) {
+//            holder.timeView.setmClockColor(Color.parseColor("#74848c"));
+//        } else if (hour < 6) {
+//            holder.timeView.setmClockColor(Color.parseColor("#56b5e2"));
+//        } else if (hour < 9) {
+//            holder.timeView.setmClockColor(Color.parseColor("#8c97cb"));
+//        } else {
+//            holder.timeView.setmClockColor(Color.parseColor("#e97f6a"));
+//        }
+//
+//
+//        holder.title.setText(bean.getTitle());
+//        holder.content.setText(bean.getContent());
+//
+//        int type = bean.getType();
+//        boolean lock = bean.getLock();
+//        if (type == RecordDataBean.TYPE_NOTE) {
+//            //holder.flagImageView.setBackgroundResource(R.drawable.clock);
+//            holder.flagImageView.setVisibility(View.INVISIBLE);
+//        } else if (type == RecordDataBean.TYPE_MOOD) {
+//            if (lock) {
+//                holder.flagImageView.setBackgroundResource(R.drawable.lock);
+//                holder.contentLayout.setBackgroundColor(Color.parseColor("#1bbc9b"));
+//                holder.content.setVisibility(View.INVISIBLE);
+//                holder.title.setVisibility(View.INVISIBLE);
+//            }
+//        }
+//        holder.item.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mContext != null) {
+//                    Intent intent = new Intent();
+//                    intent.setClass(mContext, RecordContentActivity.class);
+//                    intent.putExtra("data", bean);
+//                    mContext.startActivity(intent);
+//                }
+//            }
+//        });
     }
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+//        return dataList.size();
+        return 0;
     }
 
     class RecordContentHolder extends RecyclerView.ViewHolder {

@@ -5,12 +5,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.zhangmiao.notepad.R;
+import com.zhangmiao.notepad.bean.NoteContentBean;
 import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.db.RecordDao;
 
@@ -34,10 +33,8 @@ public class RecordNoteActivity extends Activity {
     @BindView(R.id.record_note_content_text)
     EditText mContentEditText;
 
-    @BindView(R.id.record_note_content_image)
-    ImageView mContextImage;
-
-    RecordDataBean bean;
+    RecordDataBean dataBean;
+    NoteContentBean contentBean;
 
     boolean isSave;
 
@@ -47,7 +44,8 @@ public class RecordNoteActivity extends Activity {
         setContentView(R.layout.activity_record_note);
         ButterKnife.bind(this);
         isSave = false;
-        bean = new RecordDataBean();
+        dataBean = new RecordDataBean();
+        contentBean = new NoteContentBean();
     }
 
     @OnClick(R.id.record_note_toolbar_back)
@@ -73,21 +71,21 @@ public class RecordNoteActivity extends Activity {
         isSave = true;
         String title = mTitleEditText.getText().toString();
         if (title.isEmpty()) {
-            bean.setTitle("无标题");
+            contentBean.setTitle("无标题");
         } else {
-            bean.setTitle(title);
+            contentBean.setTitle(title);
         }
         String content = mContentEditText.getText().toString();
         if (content.isEmpty()) {
-            bean.setContent("无内容");
+            contentBean.setArticle("无内容");
         } else {
-            bean.setContent(content);
+            contentBean.setArticle(content);
         }
-        bean.setType(RecordDataBean.TYPE_NOTE);
-        bean.setDate((new Date()).getTime());
-        bean.setLock(false);
-        bean.setId(UUID.randomUUID().toString());
-        RecordDao.insertNote(bean);
+        dataBean.setType(RecordDataBean.TYPE_NOTE);
+        dataBean.setCrateDate((new Date()).getTime());
+        dataBean.setId(UUID.randomUUID().toString());
+        dataBean.setContent(contentBean.toJson());
+        RecordDao.insertNote(dataBean);
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
@@ -98,26 +96,10 @@ public class RecordNoteActivity extends Activity {
 
     @OnClick(R.id.record_note_toolbar_font)
     public void font() {
-        if (mContentEditText.getVisibility() == View.VISIBLE) {
-            Toast.makeText(this, "当前就是文字输入模式", Toast.LENGTH_SHORT).show();
-        } else {
-            if (mContextImage.getVisibility() == View.VISIBLE) {
-                mContextImage.setVisibility(View.GONE);
-            }
-            mContentEditText.setVisibility(View.VISIBLE);
-        }
     }
 
     @OnClick(R.id.record_note_toolbar_camera)
     public void camera() {
-        if (mContextImage.getVisibility() == View.VISIBLE) {
-            Toast.makeText(this, "当前就是图片输入模式", Toast.LENGTH_SHORT).show();
-        } else {
-            if (mContentEditText.getVisibility() == View.VISIBLE) {
-                mContentEditText.setVisibility(View.GONE);
-            }
-            mContextImage.setVisibility(View.VISIBLE);
-        }
     }
 
 }

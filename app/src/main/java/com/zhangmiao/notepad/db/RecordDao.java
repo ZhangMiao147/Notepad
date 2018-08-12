@@ -49,7 +49,7 @@ public class RecordDao {
         Date date = new Date();
         Log.d(TAG, "date:" + new Date((date.getTime() / 1000 / 60 / 60 / 12)));
         long time = (date.getTime() / 1000 / 60 / 60 / 12);
-        return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.Date.ge(time)).list();
+        return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.CrateDate.ge(time)).list();
     }
 
     /**
@@ -58,7 +58,7 @@ public class RecordDao {
      * @return
      */
     public static List<RecordDataBean> queryDataByTime(long time) {
-        return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.Date.ge(time)).list();
+        return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.CrateDate.ge(time)).list();
     }
 
     /**

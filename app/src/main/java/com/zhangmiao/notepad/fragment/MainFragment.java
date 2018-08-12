@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,8 @@ import android.widget.TextView;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.RecordYearAdapter;
-import com.zhangmiao.notepad.bean.RecordDataBean;
-import com.zhangmiao.notepad.db.RecordDao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +32,7 @@ public class MainFragment extends Fragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
 
-    Map<String, List<RecordDataBean>> mDataMap;
+//    Map<String, List<RecordDataBean>> mDataMap;
     private Context mContext;
 
     RecordYearAdapter mRecordYearAdapter;
@@ -76,7 +70,7 @@ public class MainFragment extends Fragment {
             tv_noDataPrompt.setVisibility(View.GONE);
             mMainFragmentRecyclerView.setVisibility(View.VISIBLE);
         }
-        mRecordYearAdapter = new RecordYearAdapter(mContext, dateList, mDataMap);
+//        mRecordYearAdapter = new RecordYearAdapter(mContext, dateList, mDataMap);
         mMainFragmentRecyclerView.setAdapter(mRecordYearAdapter);
         return view;
     }
@@ -93,32 +87,32 @@ public class MainFragment extends Fragment {
             tv_noDataPrompt.setVisibility(View.GONE);
             mMainFragmentRecyclerView.setVisibility(View.VISIBLE);
         }
-        mRecordYearAdapter.refreshDate(dateList, mDataMap);
+//        mRecordYearAdapter.refreshDate(dateList, mDataMap);
     }
 
     private List<String> getNoteData() {
         List<String> dateList = new ArrayList<>();
-        mDataMap = new HashMap<>();
-        List<RecordDataBean> recordDataBeanList = RecordDao.queryTodayData();
-        Log.d(TAG, "recordDataBeanList:" + recordDataBeanList);
-        if (recordDataBeanList != null && recordDataBeanList.size() > 0) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
-            RecordDataBean bean = recordDataBeanList.get(0);
-            Date date = new Date(bean.getDate());
-            String dateText = format.format(date);
-            dateList.add(dateText);
-            mDataMap.put(dateText, recordDataBeanList);
-        }
+//        mDataMap = new HashMap<>();
+//        List<RecordDataBean> recordDataBeanList = RecordDao.queryTodayData();
+//        Log.d(TAG, "recordDataBeanList:" + recordDataBeanList);
+//        if (recordDataBeanList != null && recordDataBeanList.size() > 0) {
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
+//            RecordDataBean bean = recordDataBeanList.get(0);
+//            Date date = new Date(bean.getDate());
+//            String dateText = format.format(date);
+//            dateList.add(dateText);
+//            mDataMap.put(dateText, recordDataBeanList);
+//        }
         return dateList;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mDataMap != null) {
-            mDataMap.clear();
-            mDataMap = null;
-        }
+//        if (mDataMap != null) {
+//            mDataMap.clear();
+//            mDataMap = null;
+//        }
         if (mContext != null) {
             mContext = null;
         }

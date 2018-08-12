@@ -8,12 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.zhangmiao.notepad.R;
-import com.zhangmiao.notepad.bean.RecordDataBean;
-import com.zhangmiao.notepad.db.RecordDao;
 
 import java.util.Date;
 import java.util.UUID;
@@ -31,16 +28,10 @@ public class WriteMoodActivity extends Activity {
 
     private static final String TAG = WriteMoodActivity.class.getSimpleName();
 
-    @BindView(R.id.write_mood_title)
-    EditText mTitleEditText;
-
     @BindView(R.id.write_mood_content_text)
     EditText mContentEditText;
 
-    @BindView(R.id.write_mood_content_image)
-    ImageView mContextImage;
-
-    RecordDataBean bean;
+//    RecordDataBean bean;
 
     boolean isSave;
 
@@ -50,7 +41,7 @@ public class WriteMoodActivity extends Activity {
         setContentView(R.layout.activity_write_mood);
         ButterKnife.bind(this);
         isSave = false;
-        bean = new RecordDataBean();
+//        bean = new RecordDataBean();
     }
 
     @OnClick(R.id.write_mood_toolbar_back)
@@ -73,26 +64,20 @@ public class WriteMoodActivity extends Activity {
 
     @OnClick(R.id.write_mood_toolbar_save)
     public void save() {
-        isSave = true;
-        String title = mTitleEditText.getText().toString();
-        if (title.isEmpty()) {
-            bean.setTitle("无标题");
-        } else {
-            bean.setTitle(title);
-        }
-        String content = mContentEditText.getText().toString();
-        if (content.isEmpty()) {
-            bean.setContent("无内容");
-        } else {
-            bean.setContent(content);
-        }
-        bean.setType(RecordDataBean.TYPE_MOOD);
-        bean.setDate((new Date()).getTime());
-        bean.setLock(false);
-        bean.setId(UUID.randomUUID().toString());
-        Log.d(TAG, "bean:" + bean);
-        RecordDao.insertNote(bean);
-        Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+//        isSave = true;
+//        String content = mContentEditText.getText().toString();
+//        if (content.isEmpty()) {
+//            bean.setContent("无内容");
+//        } else {
+//            bean.setContent(content);
+//        }
+//        bean.setType(RecordDataBean.TYPE_MOOD);
+//        bean.setDate((new Date()).getTime());
+//        bean.setLock(false);
+//        bean.setId(UUID.randomUUID().toString());
+//        Log.d(TAG, "bean:" + bean);
+//        RecordDao.insertNote(bean);
+//        Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.write_mood_toolbar_redo)
@@ -105,23 +90,12 @@ public class WriteMoodActivity extends Activity {
         if (mContentEditText.getVisibility() == View.VISIBLE) {
             Toast.makeText(this, "当前就是文字输入模式", Toast.LENGTH_SHORT).show();
         } else {
-            if (mContextImage.getVisibility() == View.VISIBLE) {
-                mContextImage.setVisibility(View.GONE);
-            }
             mContentEditText.setVisibility(View.VISIBLE);
         }
     }
 
     @OnClick(R.id.write_mood_toolbar_camera)
     public void camera() {
-        if (mContextImage.getVisibility() == View.VISIBLE) {
-            Toast.makeText(this, "当前就是图片输入模式", Toast.LENGTH_SHORT).show();
-        } else {
-            if (mContentEditText.getVisibility() == View.VISIBLE) {
-                mContentEditText.setVisibility(View.GONE);
-            }
-            mContextImage.setVisibility(View.VISIBLE);
-        }
     }
 
 }

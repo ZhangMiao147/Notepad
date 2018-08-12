@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zhangmiao.notepad.R;
-import com.zhangmiao.notepad.bean.RecordDataBean;
 
 import java.util.List;
 import java.util.Map;
@@ -25,19 +24,19 @@ public class RecordYearAdapter extends RecyclerView.Adapter<RecordYearAdapter.Ye
 
     List<String> dataList;
     Context mContext;
-    Map<String, List<RecordDataBean>> mDataMap;
+//    Map<String, List<RecordDataBean>> mDataMap;
 
-    public RecordYearAdapter(Context context, List<String> dataList, Map<String, List<RecordDataBean>> dataMap) {
-        this.mContext = context;
-        this.dataList = dataList;
-        this.mDataMap = dataMap;
-    }
+//    public RecordYearAdapter(Context context, List<String> dataList, Map<String, List<RecordDataBean>> dataMap) {
+////        this.mContext = context;
+////        this.dataList = dataList;
+////        this.mDataMap = dataMap;
+//    }
 
-    public void refreshDate(List<String> dataList, Map<String, List<RecordDataBean>> dataMap) {
-        this.dataList = dataList;
-        this.mDataMap = dataMap;
-        notifyDataSetChanged();
-    }
+//    public void refreshDate(List<String> dataList, Map<String, List<RecordDataBean>> dataMap) {
+////        this.dataList = dataList;
+////        this.mDataMap = dataMap;
+////        notifyDataSetChanged();
+//    }
 
     @Override
     public RecordYearAdapter.YearHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,11 +46,11 @@ public class RecordYearAdapter extends RecyclerView.Adapter<RecordYearAdapter.Ye
 
     @Override
     public void onBindViewHolder(RecordYearAdapter.YearHolder holder, int position) {
-        String date = dataList.get(position);
-        holder.year.setText(date);
-        holder.contentRecycler.setLayoutManager(new LinearLayoutManager(mContext));
-        RecordContentAdapter adapter = new RecordContentAdapter(mContext, mDataMap.get(date));
-        holder.contentRecycler.setAdapter(adapter);
+//        String date = dataList.get(position);
+//        holder.year.setText(date);
+//        holder.contentRecycler.setLayoutManager(new LinearLayoutManager(mContext));
+//        RecordContentAdapter adapter = new RecordContentAdapter(mContext, mDataMap.get(date));
+//        holder.contentRecycler.setAdapter(adapter);
     }
 
     @Override

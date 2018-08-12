@@ -19,17 +19,21 @@
             android:layout_alignParentTop="true"
             android:background="?attr/colorPrimary">
 
+            <!--<ImageView-->
+            <!--android:id="@+id/main_toolbar_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:background="@drawable/back"-->
+            <!--android:visibility="gone" />-->
+
             <ImageView
-                android:id="@+id/main_toolbar_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/back"
-                android:visibility="gone"
-                />
+                android:id="@+id/main_toolbar_left_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/menu" />
 
         </android.support.v7.widget.Toolbar>
-
 
 
         <FrameLayout
@@ -70,9 +74,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="记录我的生活"
-                    android:textColor="@android:color/black"
-
-                    />
+                    android:textColor="@android:color/black" />
 
                 <ImageView
                     android:layout_width="wrap_content"

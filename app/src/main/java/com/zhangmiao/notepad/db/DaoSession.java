@@ -16,7 +16,7 @@ import com.zhangmiao.notepad.db.RecordDataBeanDao;
 
 /**
  * {@inheritDoc}
- *
+ * 
  * @see org.greenrobot.greendao.AbstractDaoSession
  */
 public class DaoSession extends AbstractDaoSession {
@@ -36,7 +36,7 @@ public class DaoSession extends AbstractDaoSession {
 
         registerDao(RecordDataBean.class, recordDataBeanDao);
     }
-
+    
     public void clear() {
         recordDataBeanDaoConfig.getIdentityScope().clear();
     }

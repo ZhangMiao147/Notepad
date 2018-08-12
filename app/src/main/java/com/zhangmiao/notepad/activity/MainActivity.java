@@ -1,7 +1,6 @@
 package com.zhangmiao.notepad.activity;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -19,7 +18,6 @@ import android.widget.ListView;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.LeftListViewAdapter;
-import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.fragment.MainFragment;
 import com.zhangmiao.notepad.fragment.RecordListFragment;
 
@@ -59,9 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.main_drawer_layout)
     DrawerLayout mDrawerLayout;
+//
+//    @BindView(R.id.main_toolbar_back)
+//    ImageView iv_toolbarBack;
 
-    @BindView(R.id.main_toolbar_back)
-    ImageView iv_toolbarBack;
+    @BindView(R.id.main_toolbar_left_iv)
+    ImageView iv_left;
 
     private boolean isBack;
 
@@ -95,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = mManager.beginTransaction();
         mMainFragment = new MainFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("type", RecordDataBean.TYPE_MAIN);
+//        bundle.putInt("type", RecordDataBean.TYPE_MAIN);
         mMainFragment.setArguments(bundle);
         transaction.replace(R.id.main_fragment, mMainFragment);
         transaction.commit();
-        iv_toolbarBack.setVisibility(View.GONE);
+//        iv_toolbarBack.setVisibility(View.GONE);
     }
 
     private void initListView() {
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         if (mManager == null) {
             mManager = getSupportFragmentManager();
         }
-        back();
+//        back();
         if (position == 0) {
             //我的笔记
             Log.d(TAG, "count = " + mManager.getBackStackEntryCount());
@@ -124,13 +125,13 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt("type", RecordDataBean.TYPE_NOTE);
+//            bundle.putInt("type", RecordDataBean.TYPE_NOTE);
             mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
             transaction.commit();
-            iv_toolbarBack.setVisibility(View.VISIBLE);
+//            iv_toolbarBack.setVisibility(View.VISIBLE);
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
@@ -142,13 +143,13 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt("type", RecordDataBean.TYPE_MOOD);
+//            bundle.putInt("type", RecordDataBean.TYPE_MOOD);
             mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
             transaction.commit();
-            iv_toolbarBack.setVisibility(View.VISIBLE);
+//            iv_toolbarBack.setVisibility(View.VISIBLE);
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
@@ -180,15 +181,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "main_left_person");
     }
 
-    @OnClick(R.id.main_toolbar_back)
-    public void back() {
-        Fragment fragment = mManager.findFragmentById(R.id.main_fragment);
-        if (fragment instanceof RecordListFragment) {
-            mManager.popBackStack();
-        }
-        mToolbar.setTitle("");
-        iv_toolbarBack.setVisibility(View.GONE);
-    }
+//    @OnClick(R.id.main_toolbar_back)
+//    public void back() {
+//        Fragment fragment = mManager.findFragmentById(R.id.main_fragment);
+//        if (fragment instanceof RecordListFragment) {
+//            mManager.popBackStack();
+//        }
+//        mToolbar.setTitle("");
+//        iv_toolbarBack.setVisibility(View.GONE);
+//    }
 
     private List<Map<String, Object>> getRecordData() {
         List<Map<String, Object>> list = new ArrayList<>();
@@ -227,9 +228,14 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
+    @OnClick(R.id.main_toolbar_left_iv)
+    public void showLeftLayout() {
+        mDrawerLayout.openDrawer(Gravity.LEFT);
+    }
+
     private void setToolbar() {
         mToolbar.setTitle("");
-        mToolbar.setNavigationIcon(R.drawable.menu);
+//        mToolbar.setNavigationIcon(R.drawable.menu);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -286,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         if (isBack) {
             mManager.popBackStack();
             mToolbar.setTitle("");
-            iv_toolbarBack.setVisibility(View.GONE);
+//            iv_toolbarBack.setVisibility(View.GONE);
             isBack = false;
         } else {
             super.onBackPressed();

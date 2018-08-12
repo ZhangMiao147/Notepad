@@ -26,7 +26,7 @@ public class BaseApplication extends Application {
      */
     private void setupDatabase() {
         //创建数据库notepad.db
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getApplicationContext(),
                 "notepad.db", null);
         //获取可写数据库
         SQLiteDatabase db = helper.getWritableDatabase();
