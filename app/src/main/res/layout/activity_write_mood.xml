@@ -5,52 +5,52 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/write_mood_toolbar"
+        android:id="@+id/activity_write_mood_toolbar_tb"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="center_vertical"
         android:background="?attr/colorPrimary">
 
         <ImageView
-            android:id="@+id/write_mood_toolbar_back"
+            android:id="@+id/activity_write_mood_toolbar_back_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/back" />
 
         <ImageView
-            android:id="@+id/write_mood_toolbar_save"
+            android:id="@+id/activity_write_mood_toolbar_save_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/save" />
 
         <ImageView
-            android:id="@+id/write_mood_toolbar_undo"
+            android:id="@+id/activity_write_mood_toolbar_undo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/undo" />
 
         <ImageView
-            android:id="@+id/write_mood_toolbar_redo"
+            android:id="@+id/activity_write_mood_toolbar_redo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/redo" />
 
         <ImageView
-            android:id="@+id/write_mood_toolbar_font"
+            android:id="@+id/activity_write_mood_toolbar_font_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/font" />
 
         <ImageView
-            android:id="@+id/write_mood_toolbar_camera"
+            android:id="@+id/activity_write_mood_toolbar_camera_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/camera" />
 
     </android.support.v7.widget.Toolbar>
@@ -71,27 +71,58 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:background="#dccfe4"
-            >
+            android:padding="10dp">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/activity_write_mood_date_iv"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/clock" />
+                android:layout_weight="1"
+                android:src="@drawable/date" />
+
+
+            <ImageView
+                android:id="@+id/activity_write_mood_location_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/location" />
+
+            <ImageView
+                android:id="@+id/activity_write_mood_weather_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/fine" />
+
+            <ImageView
+                android:id="@+id/activity_write_mood_mood_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/happy" />
+
+            <ImageView
+                android:id="@+id/activity_write_mood_lock_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/lock" />
 
         </LinearLayout>
 
         <EditText
-            android:background="#f4f9fd"
-            android:id="@+id/write_mood_content_text"
+            android:id="@+id/activity_write_mood_content_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-             android:enabled="true"
+            android:background="#f4f9fd"
+            android:enabled="true"
             android:gravity="top"
             android:hint="写下此刻的心情..."
             android:inputType="textMultiLine"
             android:minLines="8"
+            android:padding="10dp"
             android:scrollbars="vertical"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"

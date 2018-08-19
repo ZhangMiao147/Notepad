@@ -24,14 +24,12 @@ public class RecordDataBeanDao extends AbstractDao<RecordDataBean, String> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property TYPE_MOOD = new Property(0, int.class, "TYPE_MOOD", false, "TYPE__MOOD");
-        public final static Property TYPE_NOTE = new Property(1, int.class, "TYPE_NOTE", false, "TYPE__NOTE");
-        public final static Property Id = new Property(2, String.class, "id", true, "ID");
-        public final static Property CrateDate = new Property(3, long.class, "crateDate", false, "CRATE_DATE");
-        public final static Property Content = new Property(4, String.class, "content", false, "CONTENT");
-        public final static Property Type = new Property(5, int.class, "type", false, "TYPE");
-        public final static Property UpdateDate = new Property(6, long.class, "updateDate", false, "UPDATE_DATE");
-        public final static Property IsWastebasket = new Property(7, boolean.class, "isWastebasket", false, "IS_WASTEBASKET");
+        public final static Property Id = new Property(0, String.class, "id", true, "ID");
+        public final static Property CrateDate = new Property(1, long.class, "crateDate", false, "CRATE_DATE");
+        public final static Property Content = new Property(2, String.class, "content", false, "CONTENT");
+        public final static Property Type = new Property(3, int.class, "type", false, "TYPE");
+        public final static Property UpdateDate = new Property(4, long.class, "updateDate", false, "UPDATE_DATE");
+        public final static Property IsWastebasket = new Property(5, boolean.class, "isWastebasket", false, "IS_WASTEBASKET");
     };
 
 
@@ -47,14 +45,12 @@ public class RecordDataBeanDao extends AbstractDao<RecordDataBean, String> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"RECORD_DATA_BEAN\" (" + //
-                "\"TYPE__MOOD\" INTEGER NOT NULL ," + // 0: TYPE_MOOD
-                "\"TYPE__NOTE\" INTEGER NOT NULL ," + // 1: TYPE_NOTE
-                "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 2: id
-                "\"CRATE_DATE\" INTEGER NOT NULL UNIQUE ," + // 3: crateDate
-                "\"CONTENT\" TEXT," + // 4: content
-                "\"TYPE\" INTEGER NOT NULL ," + // 5: type
-                "\"UPDATE_DATE\" INTEGER NOT NULL ," + // 6: updateDate
-                "\"IS_WASTEBASKET\" INTEGER NOT NULL );"); // 7: isWastebasket
+                "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
+                "\"CRATE_DATE\" INTEGER NOT NULL UNIQUE ," + // 1: crateDate
+                "\"CONTENT\" TEXT," + // 2: content
+                "\"TYPE\" INTEGER NOT NULL ," + // 3: type
+                "\"UPDATE_DATE\" INTEGER NOT NULL ," + // 4: updateDate
+                "\"IS_WASTEBASKET\" INTEGER NOT NULL );"); // 5: isWastebasket
     }
 
     /** Drops the underlying database table. */
@@ -66,75 +62,67 @@ public class RecordDataBeanDao extends AbstractDao<RecordDataBean, String> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, RecordDataBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getTYPE_MOOD());
-        stmt.bindLong(2, entity.getTYPE_NOTE());
  
         String id = entity.getId();
         if (id != null) {
-            stmt.bindString(3, id);
+            stmt.bindString(1, id);
         }
-        stmt.bindLong(4, entity.getCrateDate());
+        stmt.bindLong(2, entity.getCrateDate());
  
         String content = entity.getContent();
         if (content != null) {
-            stmt.bindString(5, content);
+            stmt.bindString(3, content);
         }
-        stmt.bindLong(6, entity.getType());
-        stmt.bindLong(7, entity.getUpdateDate());
-        stmt.bindLong(8, entity.getIsWastebasket() ? 1L: 0L);
+        stmt.bindLong(4, entity.getType());
+        stmt.bindLong(5, entity.getUpdateDate());
+        stmt.bindLong(6, entity.getIsWastebasket() ? 1L: 0L);
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, RecordDataBean entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getTYPE_MOOD());
-        stmt.bindLong(2, entity.getTYPE_NOTE());
  
         String id = entity.getId();
         if (id != null) {
-            stmt.bindString(3, id);
+            stmt.bindString(1, id);
         }
-        stmt.bindLong(4, entity.getCrateDate());
+        stmt.bindLong(2, entity.getCrateDate());
  
         String content = entity.getContent();
         if (content != null) {
-            stmt.bindString(5, content);
+            stmt.bindString(3, content);
         }
-        stmt.bindLong(6, entity.getType());
-        stmt.bindLong(7, entity.getUpdateDate());
-        stmt.bindLong(8, entity.getIsWastebasket() ? 1L: 0L);
+        stmt.bindLong(4, entity.getType());
+        stmt.bindLong(5, entity.getUpdateDate());
+        stmt.bindLong(6, entity.getIsWastebasket() ? 1L: 0L);
     }
 
     @Override
     public String readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2);
+        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
     }    
 
     @Override
     public RecordDataBean readEntity(Cursor cursor, int offset) {
         RecordDataBean entity = new RecordDataBean( //
-            cursor.getInt(offset + 0), // TYPE_MOOD
-            cursor.getInt(offset + 1), // TYPE_NOTE
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // id
-            cursor.getLong(offset + 3), // crateDate
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // content
-            cursor.getInt(offset + 5), // type
-            cursor.getLong(offset + 6), // updateDate
-            cursor.getShort(offset + 7) != 0 // isWastebasket
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // id
+            cursor.getLong(offset + 1), // crateDate
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // content
+            cursor.getInt(offset + 3), // type
+            cursor.getLong(offset + 4), // updateDate
+            cursor.getShort(offset + 5) != 0 // isWastebasket
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, RecordDataBean entity, int offset) {
-        entity.setTYPE_MOOD(cursor.getInt(offset + 0));
-        entity.setTYPE_NOTE(cursor.getInt(offset + 1));
-        entity.setId(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setCrateDate(cursor.getLong(offset + 3));
-        entity.setContent(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setType(cursor.getInt(offset + 5));
-        entity.setUpdateDate(cursor.getLong(offset + 6));
-        entity.setIsWastebasket(cursor.getShort(offset + 7) != 0);
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setCrateDate(cursor.getLong(offset + 1));
+        entity.setContent(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setType(cursor.getInt(offset + 3));
+        entity.setUpdateDate(cursor.getLong(offset + 4));
+        entity.setIsWastebasket(cursor.getShort(offset + 5) != 0);
      }
     
     @Override

@@ -19,14 +19,6 @@
             android:layout_alignParentTop="true"
             android:background="?attr/colorPrimary">
 
-            <!--<ImageView-->
-            <!--android:id="@+id/main_toolbar_back"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="15dp"-->
-            <!--android:background="@drawable/back"-->
-            <!--android:visibility="gone" />-->
-
             <ImageView
                 android:id="@+id/main_toolbar_left_iv"
                 android:layout_width="30dp"

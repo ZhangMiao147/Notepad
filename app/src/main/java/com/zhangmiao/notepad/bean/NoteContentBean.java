@@ -20,6 +20,8 @@ public class NoteContentBean {
      */
     private String title;
 
+    private int font;
+
     public String getArticle() {
         return article;
     }
@@ -36,11 +38,20 @@ public class NoteContentBean {
         this.title = title;
     }
 
+    public void setFont(int font) {
+        this.font = font;
+    }
+
+    public int getFont() {
+        return font;
+    }
+
     @Override
     public String toString() {
         return "NoteContentBean{" +
                 "article='" + article + '\'' +
                 ", title='" + title + '\'' +
+                ", font='" + font + '\'' +
                 '}';
     }
 
@@ -50,6 +61,7 @@ public class NoteContentBean {
             JSONObject jsonObject = new JSONObject(json);
             bean.setArticle(jsonObject.getString("article"));
             bean.setTitle(jsonObject.getString("title"));
+            bean.setFont(jsonObject.getInt("font"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -61,6 +73,7 @@ public class NoteContentBean {
         try {
             jsonObject.put("article", article);
             jsonObject.put("title", title);
+            jsonObject.put("font", font);
         } catch (JSONException e) {
             e.printStackTrace();
         }

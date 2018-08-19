@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.LeftListViewAdapter;
+import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.fragment.MainFragment;
 import com.zhangmiao.notepad.fragment.RecordListFragment;
 
@@ -57,22 +58,19 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.main_drawer_layout)
     DrawerLayout mDrawerLayout;
-//
-//    @BindView(R.id.main_toolbar_back)
-//    ImageView iv_toolbarBack;
 
     @BindView(R.id.main_toolbar_left_iv)
     ImageView iv_left;
 
     private boolean isBack;
 
-    FragmentManager mManager;
+    private FragmentManager mManager;
 
-    MainFragment mMainFragment;
+    private MainFragment mMainFragment;
 
-    RecordListFragment mRecordListFragment;
+    private RecordListFragment mRecordListFragment;
 
-    Menu mMenu;
+    private Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +94,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = mManager.beginTransaction();
         mMainFragment = new MainFragment();
         Bundle bundle = new Bundle();
-//        bundle.putInt("type", RecordDataBean.TYPE_MAIN);
         mMainFragment.setArguments(bundle);
-        transaction.replace(R.id.main_fragment, mMainFragment);
-        transaction.commit();
-//        iv_toolbarBack.setVisibility(View.GONE);
+        transaction.replace(R.id.main_fragment, mMainFragment).commit();
     }
 
     private void initListView() {
@@ -117,21 +112,17 @@ public class MainActivity extends AppCompatActivity {
         if (mManager == null) {
             mManager = getSupportFragmentManager();
         }
-//        back();
         if (position == 0) {
             //我的笔记
             Log.d(TAG, "count = " + mManager.getBackStackEntryCount());
-
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
-//            bundle.putInt("type", RecordDataBean.TYPE_NOTE);
             mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
             transaction.commit();
-//            iv_toolbarBack.setVisibility(View.VISIBLE);
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
@@ -143,13 +134,11 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
-//            bundle.putInt("type", RecordDataBean.TYPE_MOOD);
             mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             transaction.addToBackStack(null);
             transaction.commit();
-//            iv_toolbarBack.setVisibility(View.VISIBLE);
             if (mMenu == null) {
                 mMenu = mToolbar.getMenu();
             }
@@ -180,16 +169,6 @@ public class MainActivity extends AppCompatActivity {
     public void showPersonMessage() {
         Log.d(TAG, "main_left_person");
     }
-
-//    @OnClick(R.id.main_toolbar_back)
-//    public void back() {
-//        Fragment fragment = mManager.findFragmentById(R.id.main_fragment);
-//        if (fragment instanceof RecordListFragment) {
-//            mManager.popBackStack();
-//        }
-//        mToolbar.setTitle("");
-//        iv_toolbarBack.setVisibility(View.GONE);
-//    }
 
     private List<Map<String, Object>> getRecordData() {
         List<Map<String, Object>> list = new ArrayList<>();
@@ -235,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setToolbar() {
         mToolbar.setTitle("");
-//        mToolbar.setNavigationIcon(R.drawable.menu);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
         });
-
     }
 
     @OnClick(R.id.main_add)
@@ -281,6 +258,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mRecordLayout.getVisibility() == View.VISIBLE) {
+            mRecordLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -288,15 +268,12 @@ public class MainActivity extends AppCompatActivity {
         if (mManager == null) {
             mManager = getSupportFragmentManager();
         }
-
         if (isBack) {
             mManager.popBackStack();
             mToolbar.setTitle("");
-//            iv_toolbarBack.setVisibility(View.GONE);
             isBack = false;
         } else {
             super.onBackPressed();
         }
-
     }
 }

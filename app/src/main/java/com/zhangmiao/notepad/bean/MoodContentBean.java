@@ -9,16 +9,6 @@ import org.json.JSONObject;
  */
 
 public class MoodContentBean {
-
-    public static final int WEATHER_FINE = 10001;
-    public static final int WEATHER_RAIN = 10002;
-    public static final int WEATHER_SHADE = 10003;
-    public static final int WEATHER_SNOW = 10004;
-
-    public static final int MOOD_HAPPY = 20001;
-    public static final int MOOD_UNHAPPY = 20002;
-
-
     /**
      * 文章
      */
@@ -38,6 +28,8 @@ public class MoodContentBean {
      * 心情
      */
     private int mood;
+
+    private int font;
 
     public String getArticle() {
         return article;
@@ -71,6 +63,14 @@ public class MoodContentBean {
         this.mood = mood;
     }
 
+    public void setFont(int font) {
+        this.font = font;
+    }
+
+    public int getFont() {
+        return font;
+    }
+
     @Override
     public String toString() {
         return "MoodContentBean{" +
@@ -78,6 +78,7 @@ public class MoodContentBean {
                 ", islock=" + islock +
                 ", weather=" + weather +
                 ", mood=" + mood +
+                ", font=" + font +
                 '}';
     }
 
@@ -89,6 +90,7 @@ public class MoodContentBean {
             bean.setIslock(jsonObject.getBoolean("islock"));
             bean.setWeather(jsonObject.getInt("weather"));
             bean.setMood(jsonObject.getInt("mood"));
+            bean.setFont(jsonObject.getInt("font"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -102,6 +104,7 @@ public class MoodContentBean {
             jsonObject.put("islock", islock);
             jsonObject.put("weather", weather);
             jsonObject.put("mood", mood);
+            jsonObject.put("font", font);
         } catch (JSONException e) {
             e.printStackTrace();
         }
