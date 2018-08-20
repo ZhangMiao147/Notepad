@@ -75,19 +75,42 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/activity_write_mood_date_iv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/date" />
-
-
-            <ImageView
                 android:id="@+id/activity_write_mood_location_iv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/location" />
+                android:src="@drawable/location"
+              />
+
+            <LinearLayout
+                android:id="@+id/activity_write_mood_location_layout_ll"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/activity_write_mood_location_province_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="广东"
+                    android:textColor="#56b5e2" />
+
+                <TextView
+                    android:id="@+id/activity_write_mood_location_city_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="珠海"
+                    android:textColor="#e97f6a" />
+
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/activity_write_mood_weather_iv"
@@ -108,7 +131,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/lock" />
+                android:src="@drawable/unlock"
+                />
 
         </LinearLayout>
 
