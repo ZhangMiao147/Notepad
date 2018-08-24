@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.LeftListViewAdapter;
+import com.zhangmiao.notepad.bean.DataBean;
 import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.fragment.MainFragment;
 import com.zhangmiao.notepad.fragment.RecordListFragment;
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
+            bundle.putInt("type", DataBean.DATA_TYPE_NOTE);
             mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = mManager.beginTransaction();
             mRecordListFragment = new RecordListFragment();
             Bundle bundle = new Bundle();
+            bundle.putInt("type", DataBean.DATA_TYPE_MOOD);
             mRecordListFragment.setArguments(bundle);
             transaction.replace(R.id.main_fragment, mRecordListFragment);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

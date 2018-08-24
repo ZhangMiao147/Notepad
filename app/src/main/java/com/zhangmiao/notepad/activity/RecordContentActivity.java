@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.zhangmiao.notepad.R;
+import com.zhangmiao.notepad.bean.RecordDataBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import butterknife.OnClick;
  */
 public class RecordContentActivity extends Activity {
 
-//    private RecordDataBean recordDataBean;
+    private RecordDataBean recordDataBean;
 
     @BindView(R.id.record_content_title)
     TextView tv_contentTitle;
@@ -33,12 +34,11 @@ public class RecordContentActivity extends Activity {
         setContentView(R.layout.activity_record_content);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-//        recordDataBean = (RecordDataBean) intent.getSerializableExtra("data");
-//
-//        if (recordDataBean != null) {
-//            tv_contentTitle.setText(recordDataBean.getTitle());
-//            tv_contentContent.setText(recordDataBean.getContent());
-//        }
+        recordDataBean = (RecordDataBean) intent.getSerializableExtra("data");
+
+        if (recordDataBean != null) {
+            tv_contentContent.setText(recordDataBean.getContent());
+        }
     }
 
     @OnClick(R.id.record_content_toolbar_back)

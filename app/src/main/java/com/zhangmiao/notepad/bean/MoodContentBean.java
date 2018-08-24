@@ -39,7 +39,7 @@ public class MoodContentBean {
         this.article = article;
     }
 
-    public boolean isIslock() {
+    public boolean getIslock() {
         return islock;
     }
 
@@ -82,7 +82,7 @@ public class MoodContentBean {
                 '}';
     }
 
-    public MoodContentBean jsonToBean(String json) {
+    public static MoodContentBean jsonToBean(String json) {
         MoodContentBean bean = new MoodContentBean();
         try {
             JSONObject jsonObject = new JSONObject(json);

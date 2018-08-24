@@ -55,7 +55,7 @@ public class NoteContentBean {
                 '}';
     }
 
-    public NoteContentBean jsonToBean(String json) {
+    public static NoteContentBean jsonToBean(String json) {
         NoteContentBean bean = new NoteContentBean();
         try {
             JSONObject jsonObject = new JSONObject(json);
