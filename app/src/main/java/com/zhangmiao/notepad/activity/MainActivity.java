@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.adapter.LeftListViewAdapter;
@@ -22,6 +23,8 @@ import com.zhangmiao.notepad.bean.DataBean;
 import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.fragment.MainFragment;
 import com.zhangmiao.notepad.fragment.RecordListFragment;
+import com.zhangmiao.notepad.fragment.SetFragment;
+import com.zhangmiao.notepad.fragment.WastebasketFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
     private MainFragment mMainFragment;
 
     private RecordListFragment mRecordListFragment;
+
+    private WastebasketFragment mWastebasketFragment;
+
+    private SetFragment mSetFragment;
 
     private Menu mMenu;
 
@@ -151,6 +158,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (position == 2) {
             //废纸篓
+            Log.d(TAG, "count = " + mManager.getBackStackEntryCount());
+            FragmentTransaction transaction = mManager.beginTransaction();
+            mWastebasketFragment = new WastebasketFragment();
+            transaction.replace(R.id.main_fragment, mWastebasketFragment);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            if (mMenu == null) {
+                mMenu = mToolbar.getMenu();
+            }
+            mToolbar.setTitle("废纸篓");
+            isBack = true;
         }
         mDrawerLayout.closeDrawer(Gravity.LEFT);
         if (mRecordLayout.getVisibility() == View.VISIBLE) {
@@ -162,6 +181,25 @@ public class MainActivity extends AppCompatActivity {
     public void LeftSetItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "LeftSetItemClick position = " + position);
         //意见反馈与设置
+        if (position == 0) {
+            //意见反馈
+            Toast.makeText(this, "意见反馈", Toast.LENGTH_SHORT).show();
+        }
+        if (position == 1) {
+            //设置
+            Log.d(TAG, "count = " + mManager.getBackStackEntryCount());
+            FragmentTransaction transaction = mManager.beginTransaction();
+            mSetFragment = new SetFragment();
+            transaction.replace(R.id.main_fragment, mSetFragment);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            if (mMenu == null) {
+                mMenu = mToolbar.getMenu();
+            }
+            mToolbar.setTitle("设置");
+            isBack = true;
+        }
         mDrawerLayout.closeDrawer(Gravity.LEFT);
         if (mRecordLayout.getVisibility() == View.VISIBLE) {
             mRecordLayout.setVisibility(View.GONE);

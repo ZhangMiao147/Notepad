@@ -2,6 +2,7 @@ package com.zhangmiao.notepad.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -48,6 +49,7 @@ public class RecordNoteActivity extends Activity {
     private NoteContentBean contentBean;
 
     private boolean isSave; //是否已保存
+    private boolean isUpdate; //是否是更新
     private int mFontSize;
 
 
@@ -61,10 +63,26 @@ public class RecordNoteActivity extends Activity {
         setContentView(R.layout.activity_record_note);
         ButterKnife.bind(this);
         isSave = false;
-        dataBean = new RecordDataBean();
-        contentBean = new NoteContentBean();
-        mFontSize = DataBean.FONT_MIDDLE;
-        mContentEditText.setTextSize(mFontSize);
+        Intent intent = getIntent();
+        RecordDataBean recordDataBean = (RecordDataBean) intent.getSerializableExtra("edit");
+        if (recordDataBean == null) {
+            isUpdate = false;
+            dataBean = new RecordDataBean();
+            contentBean = new NoteContentBean();
+            mFontSize = DataBean.FONT_MIDDLE;
+            mContentEditText.setTextSize(mFontSize);
+            mTitleEditText.setTextSize(mFontSize);
+        } else {
+            isUpdate = true;
+            dataBean = recordDataBean;
+            contentBean = NoteContentBean.jsonToBean(dataBean.getContent());
+            mFontSize = contentBean.getFont();
+            mContentEditText.setText(contentBean.getArticle());
+            mContentEditText.setTextSize(mFontSize);
+            mTitleEditText.setText(contentBean.getTitle());
+            mTitleEditText.setTextSize(mFontSize);
+        }
+
         mEditList = new ArrayList<>();
         mEditDeleteList = new ArrayList<>();
         mTitleEditText.addTextChangedListener(new TextWatcher() {
@@ -150,10 +168,14 @@ public class RecordNoteActivity extends Activity {
         dataBean.setCrateDate(time);
         dataBean.setUpdateDate(time);
         dataBean.setType(DataBean.DATA_TYPE_NOTE);
-        dataBean.setId(UUID.randomUUID().toString());
         dataBean.setContent(contentBean.toJson());
         dataBean.setIsWastebasket(false);
-        RecordDao.insertNote(dataBean);
+        if (isUpdate) {
+            RecordDao.updateNote(dataBean);
+        } else {
+            dataBean.setId(UUID.randomUUID().toString());
+            RecordDao.insertNote(dataBean);
+        }
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
@@ -209,6 +231,7 @@ public class RecordNoteActivity extends Activity {
                 break;
         }
         mTitleEditText.setTextSize(mFontSize);
+        mContentEditText.setTextSize(mFontSize);
     }
 
     @OnClick(R.id.record_note_toolbar_camera)

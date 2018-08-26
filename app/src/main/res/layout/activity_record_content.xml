@@ -5,39 +5,114 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/write_mood_toolbar"
+        android:id="@+id/activity_record_content_toolbar_tb"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="center_vertical"
         android:background="?attr/colorPrimary">
 
         <ImageView
-            android:id="@+id/record_content_toolbar_back"
+            android:id="@+id/activity_record_content_toolbar_back_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/back" />
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/back" />
+
+        <ImageView
+            android:id="@+id/activity_record_content_toolbar_edit_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/edit" />
+
+        <ImageView
+            android:id="@+id/activity_record_content_toolbar_share_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/share" />
+
+
+        <ImageView
+            android:id="@+id/activity_record_content_toolbar_delete_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/delete" />
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/record_content_title"
+    <LinearLayout
+        android:id="@+id/activity_record_content_mood_layout_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/activity_record_content_mood_weather_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/fine" />
+
+        <ImageView
+            android:id="@+id/activity_record_content_mood_mood_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/happy" />
+
+        <TextView
+            android:id="@+id/activity_record_content_mood_location_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="广东珠海" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activity_record_content_note_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="课堂笔记"
         android:textColor="@android:color/black"
-        android:textSize="32sp" />
+        android:textSize="32sp"
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
-            android:id="@+id/record_content_content"
+            android:id="@+id/activity_record_content_article_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/test_content"
+            android:text=""
             android:textColor="@android:color/black"
             android:textSize="20sp" />
     </ScrollView>
+
+    <TextView
+        android:id="@+id/activity_record_content_year_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        android:text="2018年6月1日"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/activity_record_content_second_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:gravity="right"
+        android:text="20:16:45"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 
 </LinearLayout>

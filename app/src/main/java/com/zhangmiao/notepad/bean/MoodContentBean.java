@@ -29,7 +29,15 @@ public class MoodContentBean {
      */
     private int mood;
 
+    /**
+     * 字体
+     */
     private int font;
+
+    /**
+     * 定位
+     */
+    private String location;
 
     public String getArticle() {
         return article;
@@ -71,6 +79,14 @@ public class MoodContentBean {
         return font;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return "MoodContentBean{" +
@@ -79,6 +95,7 @@ public class MoodContentBean {
                 ", weather=" + weather +
                 ", mood=" + mood +
                 ", font=" + font +
+                ", location=" + location +
                 '}';
     }
 
@@ -91,6 +108,7 @@ public class MoodContentBean {
             bean.setWeather(jsonObject.getInt("weather"));
             bean.setMood(jsonObject.getInt("mood"));
             bean.setFont(jsonObject.getInt("font"));
+            bean.setLocation(jsonObject.getString("location"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -105,6 +123,7 @@ public class MoodContentBean {
             jsonObject.put("weather", weather);
             jsonObject.put("mood", mood);
             jsonObject.put("font", font);
+            jsonObject.put("location", location);
         } catch (JSONException e) {
             e.printStackTrace();
         }

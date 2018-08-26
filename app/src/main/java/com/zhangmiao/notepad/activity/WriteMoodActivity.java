@@ -2,6 +2,7 @@ package com.zhangmiao.notepad.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +21,7 @@ import com.baidu.location.LocationClientOption;
 import com.zhangmiao.notepad.R;
 import com.zhangmiao.notepad.bean.DataBean;
 import com.zhangmiao.notepad.bean.MoodContentBean;
+import com.zhangmiao.notepad.bean.NoteContentBean;
 import com.zhangmiao.notepad.bean.RecordDataBean;
 import com.zhangmiao.notepad.db.RecordDao;
 import com.zhangmiao.notepad.location.MyLocationListener;
@@ -70,10 +72,13 @@ public class WriteMoodActivity extends Activity {
     private RecordDataBean bean;
 
     private boolean isSave;
+    private boolean isUpdate;
 
     private int mMoodWeather;
     private int mMoodType;
     private boolean mMoodLock;
+    private int mFontSize;
+    private StringBuffer mLocation;
 
     private LocationClient mLocationClient = null;
     private MyLocationListener myLocationListener = new MyLocationListener();
@@ -85,9 +90,72 @@ public class WriteMoodActivity extends Activity {
         setContentView(R.layout.activity_write_mood);
         ButterKnife.bind(this);
         isSave = false;
-        bean = new RecordDataBean();
-        mMoodWeather = DataBean.WEATHER_FINE;
-        mMoodType = DataBean.MOOD_HAPPY;
+        Intent intent = getIntent();
+        RecordDataBean recordDataBean = (RecordDataBean) intent.getSerializableExtra("edit");
+        if (recordDataBean == null) {
+            isUpdate = false;
+
+            bean = new RecordDataBean();
+            mMoodWeather = DataBean.WEATHER_FINE;
+            mMoodType = DataBean.MOOD_HAPPY;
+            mFontSize = DataBean.FONT_MIDDLE;
+            mMoodLock = false;
+            mLocation = new StringBuffer();
+        } else {
+            isUpdate = true;
+            bean = recordDataBean;
+            MoodContentBean moodContentBean = MoodContentBean.jsonToBean(bean.getContent());
+            mMoodWeather = moodContentBean.getWeather();
+            mMoodType = moodContentBean.getMood();
+            mMoodLock = moodContentBean.getIslock();
+            mFontSize = moodContentBean.getFont();
+            mContentEditText.setText(moodContentBean.getArticle());
+            switch (moodContentBean.getWeather()) {
+                case DataBean.WEATHER_FINE:
+                    iv_weather.setImageResource(R.drawable.fine);
+                    break;
+                case DataBean.WEATHER_RAIN:
+                    iv_weather.setImageResource(R.drawable.rain);
+                    break;
+                case DataBean.WEATHER_SHADE:
+                    iv_weather.setImageResource(R.drawable.shade);
+                    break;
+                case DataBean.WEATHER_SNOW:
+                    iv_weather.setImageResource(R.drawable.snow);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (moodContentBean.getMood()) {
+                case DataBean.MOOD_HAPPY:
+                    iv_mood.setImageResource(R.drawable.happy);
+                    break;
+                case DataBean.MOOD_UNHAPPY:
+                    iv_mood.setImageResource(R.drawable.unhappy);
+                    break;
+                default:
+                    break;
+            }
+            String location = moodContentBean.getLocation();
+            if (!TextUtils.isEmpty(location)) {
+                String[] lo = location.split("/*");
+                if (lo != null) {
+                    if (lo.length == 1) {
+                        tv_locationCity.setText(lo[0]);
+                    } else if (lo.length == 2) {
+                        tv_locationCity.setText(lo[0]);
+                        tv_locationProvince.setText(lo[1]);
+                    }
+                }
+            }
+            if (moodContentBean.getIslock()) {
+                iv_lock.setImageResource(R.drawable.lock);
+            } else {
+                iv_lock.setImageResource(R.drawable.unlock);
+            }
+        }
+        mContentEditText.setTextSize(mFontSize);
         mLocationClient = new LocationClient(getApplicationContext());
         myLocationListener.setGetAddressInfo(new MyLocationListener.GetAddressInfo() {
             @Override
@@ -97,8 +165,10 @@ public class WriteMoodActivity extends Activity {
                         iv_location.setVisibility(View.GONE);
                         ll_locationLayout.setVisibility(View.VISIBLE);
                         tv_locationProvince.setText(address.province);
+                        mLocation.append(address.province);
                         String city = address.city;
                         if (!TextUtils.isEmpty(city)) {
+                            mLocation.append("*" + city);
                             tv_locationCity.setText(city);
                         } else {
                             tv_locationCity.setVisibility(View.GONE);
@@ -187,21 +257,28 @@ public class WriteMoodActivity extends Activity {
         } else {
             bean.setContent(content);
         }
-        bean.setType(DataBean.DATA_TYPE_MOOD);
 
         MoodContentBean moodContentBean = new MoodContentBean();
         moodContentBean.setWeather(mMoodWeather);
         moodContentBean.setMood(mMoodType);
         moodContentBean.setIslock(mMoodLock);
         moodContentBean.setArticle(content);
+        moodContentBean.setFont(mFontSize);
+        moodContentBean.setLocation(mLocation.toString());
 
         bean.setContent(moodContentBean.toJson());
         long time = (new Date()).getTime();
         bean.setUpdateDate(time);
         bean.setCrateDate(time);
-        bean.setId(UUID.randomUUID().toString());
+        bean.setType(DataBean.DATA_TYPE_MOOD);
+        bean.setIsWastebasket(false);
         Log.d(TAG, "bean:" + bean);
-        RecordDao.insertNote(bean);
+        if (isUpdate) {
+            RecordDao.updateNote(bean);
+        } else {
+            bean.setId(UUID.randomUUID().toString());
+            RecordDao.insertNote(bean);
+        }
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
@@ -217,11 +294,20 @@ public class WriteMoodActivity extends Activity {
 
     @OnClick(R.id.activity_write_mood_toolbar_font_iv)
     public void font() {
-        if (mContentEditText.getVisibility() == View.VISIBLE) {
-            Toast.makeText(this, "当前就是文字输入模式", Toast.LENGTH_SHORT).show();
-        } else {
-            mContentEditText.setVisibility(View.VISIBLE);
+        switch (mFontSize) {
+            case DataBean.FONT_SMILE:
+                mFontSize = DataBean.FONT_MIDDLE;
+                break;
+            case DataBean.FONT_MIDDLE:
+                mFontSize = DataBean.FONT_BIG;
+                break;
+            case DataBean.FONT_BIG:
+                mFontSize = DataBean.FONT_SMILE;
+                break;
+            default:
+                break;
         }
+        mContentEditText.setTextSize(mFontSize);
     }
 
     @OnClick(R.id.activity_write_mood_toolbar_camera_iv)

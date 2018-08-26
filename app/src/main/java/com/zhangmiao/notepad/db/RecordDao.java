@@ -53,6 +53,18 @@ public class RecordDao {
     }
 
     /**
+     * 查询当天的数据不考汉废纸篓中的数据
+     *
+     * @return
+     */
+    public static List<RecordDataBean> queryTodayDataNoDelete() {
+        Date date = new Date();
+        Log.d(TAG, "date:" + new Date((date.getTime() / 1000 / 60 / 60 / 12)));
+        long time = (date.getTime() / 1000 / 60 / 60 / 12);
+        return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.CrateDate.ge(time)).where(RecordDataBeanDao.Properties.IsWastebasket.eq(false)).list();
+    }
+
+    /**
      * 查询日期大于time的数据
      *
      * @return
@@ -74,6 +86,18 @@ public class RecordDao {
 
     public static List<RecordDataBean> queryDataByType(int type) {
         return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.Type.eq(type)).list();
+    }
+
+    public static List<RecordDataBean> queryDataByTypeAndNoDelete(int type) {
+        return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.Type.eq(type)).where(RecordDataBeanDao.Properties.IsWastebasket.eq(false)).list();
+    }
+
+    /**
+     * 查找废纸篓的数据
+     * @return
+     */
+    public static List<RecordDataBean> queryDataIsWastebasket() {
+        return BaseApplication.getDaoInstant().getRecordDataBeanDao().queryBuilder().where(RecordDataBeanDao.Properties.IsWastebasket.eq(true)).list();
     }
 
 }

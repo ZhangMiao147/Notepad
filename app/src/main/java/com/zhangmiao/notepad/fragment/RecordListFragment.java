@@ -77,10 +77,14 @@ public class RecordListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_record, container, false);
+    }
 
-        mType = getArguments().getInt("type");
-        View view = inflater.inflate(R.layout.fragment_record, container, false);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        mType = getArguments().getInt("type");
         mYearRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         List<String> dateList = getData();
         if (dateList == null || (dateList != null && dateList.size() == 0)) {
@@ -98,13 +102,6 @@ public class RecordListFragment extends Fragment {
 
         mRecordYearAdapter = new RecordYearAdapter(mContext, dateList, mDataMap);
         mYearRecyclerView.setAdapter(mRecordYearAdapter);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
     }
 
     @Override
@@ -127,7 +124,7 @@ public class RecordListFragment extends Fragment {
     private List<String> getData() {
         List<String> dateList = new ArrayList<>();
         mDataMap = new HashMap<>();
-        List<RecordDataBean> recordDataBeanList = RecordDao.queryDataByType(mType);
+        List<RecordDataBean> recordDataBeanList = RecordDao.queryDataByTypeAndNoDelete(mType);
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
         if (recordDataBeanList != null) {
             for (int i = 0; i < recordDataBeanList.size(); i++) {
@@ -154,7 +151,7 @@ public class RecordListFragment extends Fragment {
         if (et_searchText.getText() != null) {
             String searchText = et_searchText.getText().toString();
             if (!TextUtils.isEmpty(searchText.trim())) {
-                List<RecordDataBean> dataBeanList = RecordDao.queryDataByType(mType);
+                List<RecordDataBean> dataBeanList = RecordDao.queryDataByTypeAndNoDelete(mType);
                 for (int i = 0; i < dataBeanList.size(); i++) {
                     RecordDataBean bean = dataBeanList.get(i);
                     String content = bean.getContent();

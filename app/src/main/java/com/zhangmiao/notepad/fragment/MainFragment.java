@@ -63,7 +63,12 @@ public class MainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         mMainFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         List<String> dateList = getNoteData();
@@ -77,7 +82,6 @@ public class MainFragment extends Fragment {
         }
         mRecordYearAdapter = new RecordYearAdapter(mContext, dateList, mDataMap);
         mMainFragmentRecyclerView.setAdapter(mRecordYearAdapter);
-        return view;
     }
 
     @Override
@@ -98,7 +102,7 @@ public class MainFragment extends Fragment {
     private List<String> getNoteData() {
         List<String> dateList = new ArrayList<>();
         mDataMap = new HashMap<>();
-        List<RecordDataBean> recordDataBeanList = RecordDao.queryTodayData();
+        List<RecordDataBean> recordDataBeanList = RecordDao.queryTodayDataNoDelete();
         Log.d(TAG, "recordDataBeanList:" + recordDataBeanList);
         if (recordDataBeanList != null && recordDataBeanList.size() > 0) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
